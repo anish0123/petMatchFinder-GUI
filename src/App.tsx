@@ -1,19 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LandingPage />
+  }
+])
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
-
-export default function App() {
-  return (
-    <div>
-      <h1 className="font-semibold text-2xl">Hello World</h1>
-    </div>
-  );
-}
