@@ -15,6 +15,7 @@ const AnimalDetailPage = () => {
       const response = await doGraphQLFetch(APIUrl, getAnimalById, {
         animalByIdId: animalId,
       });
+      console.log("response: ", response);
       setAnimal(response.animalById);
       console.log('animal: ', animal);
     })();
