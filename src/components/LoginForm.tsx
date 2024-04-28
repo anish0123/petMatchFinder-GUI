@@ -25,7 +25,7 @@ const LoginForm = () => {
       })) as LoginMessageResponse;
       localStorage.setItem('token', loginData.login.token!);
       localStorage.setItem('user_name', loginData.login.user.user_name!);
-      window.open('/home', '_self');
+      window.open('/animals', '_self');
     } catch (error) {
       console.error(error);
     }

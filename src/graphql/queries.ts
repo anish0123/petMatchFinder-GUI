@@ -37,6 +37,11 @@ query CheckToken {
   checkToken {
     message
     user {
+      email
+      city
+      id
+      postalCode
+      streetAddress
       user_name
     }
   }
@@ -120,4 +125,52 @@ mutation addAdoptionApplication($input: AdoptionApplicationInput!) {
 }
 `;
 
-export {login, registerUser, checkToken, getAllAnimals, getAnimalById, addAdoptionApplication};
+const getUserById = `
+query UserById($userByIdId: ID!) {
+  userById(id: $userByIdId) {
+    city
+    email
+    id
+    postalCode
+    streetAddress
+    user_name
+  }
+}
+`;
+
+const getAdoptionApplicationsByUser = `
+query Adopter($adopterId: ID!) {
+  adoptionApplicationsByAdopter(adopterId: $adopterId) {
+    adopter {
+      id
+    }
+    animal {
+      animal_name
+      id
+      image
+    }
+    description
+    appliedDate
+    id
+  }
+}
+`;
+
+const updateUser = `
+mutation UpdateUser($user: UserModify!) {
+  updateUser(user: $user) {
+    message
+    user {
+      email
+      id
+      city
+      postalCode
+      streetAddress
+      user_name
+    }
+    token
+  }
+}
+`;
+
+export {login, registerUser, checkToken, getAllAnimals, getAnimalById, addAdoptionApplication, getUserById, getAdoptionApplicationsByUser, updateUser};

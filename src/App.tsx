@@ -10,6 +10,8 @@ import {checkToken} from './graphql/queries';
 import ListingPage from './pages/ListingPage';
 import AnimalDetailPage from './pages/AnimalDetailPage';
 import AnimalAdoptionPage from './pages/AnimalAdoptionPage';
+import ProfilePage from './pages/ProfilePage';
+import UpdateProfilePage from './pages/UpdateProfilePage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -44,6 +46,14 @@ export default function App() {
     {
       path: '/animals/:animalId/adopt',
       element: <AnimalAdoptionPage />
+    },
+    {
+      path: "/profile", 
+      element: <ProfilePage />
+    },
+    {
+      path: "/profile/update", 
+      element: <UpdateProfilePage />
     }
   ];
 
