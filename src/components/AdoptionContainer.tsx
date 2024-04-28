@@ -22,6 +22,7 @@ const AdoptionApplicationContainer = ({
         />
         <h1>{application.description}</h1>
         <h1>{application.appliedDate.toString()}</h1>
+        <h1>{application.applicationStatus}</h1>
       </div>
     </>
   );

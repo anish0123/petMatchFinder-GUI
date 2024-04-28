@@ -152,6 +152,7 @@ query Adopter($adopterId: ID!) {
     description
     appliedDate
     id
+    applicationStatus
   }
 }
 `;

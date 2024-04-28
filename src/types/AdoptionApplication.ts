@@ -7,6 +7,7 @@ type AdoptionApplication = {
     animal: Animal;
     appliedDate: Date;
     description: string;
+    applicationStatus: 'pending' | 'approved' | 'rejected';
 }
 
 export type { AdoptionApplication };
