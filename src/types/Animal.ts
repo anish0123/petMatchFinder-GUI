@@ -3,7 +3,7 @@ import { Category } from "./Category";
 import { User } from './User';
 
 type Animal =  {
-    animal_id: string;
+    id: string;
     animal_name: string;
     category: Category
     birthdate: Date;

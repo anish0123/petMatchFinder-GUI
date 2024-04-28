@@ -36,7 +36,10 @@ const AnimalAdoptionPage = () => {
       },
       token!,
     );
-    console.log('response: ', response);
+    if(response.addAdoptionApplication) {
+      alert('Adoption application submitted successfully!');
+      window.open('/animals', '_self');
+    }
   };
 
   return (
