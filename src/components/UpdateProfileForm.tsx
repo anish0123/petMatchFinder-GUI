@@ -29,7 +29,10 @@ const UpdateProfileForm = () => {
         },
         token!,
       );
-      if(registerationData) {
+      if (registerationData) {
+        if (registerationData.updateUser.token) {
+          localStorage.setItem('token', registerationData.updateUser.token);
+        }
         window.open('/profile', '_self');
       }
     } catch (error) {
@@ -47,30 +50,24 @@ const UpdateProfileForm = () => {
         </h1>
         <input
           type="text"
-          {...register('user_name',
-          {
+          {...register('user_name', {
             setValueAs: (value) => value || undefined,
-          }
-          )}
+          })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
           placeholder="Username"
         />
         <input
           type="text"
-          {...register('email',
-          {
+          {...register('email', {
             setValueAs: (value) => value || undefined,
-          }
-          )}
+          })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
           placeholder="Email"
         />
         <input
-          {...register('password',
-          {
+          {...register('password', {
             setValueAs: (value) => value || undefined,
-          }
-          )}
+          })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
           type="password"
           placeholder="Password"
@@ -98,11 +95,9 @@ const UpdateProfileForm = () => {
 
         <div className="grid grid-flow-col">
           <input
-            {...register('postalCode',
-            {
+            {...register('postalCode', {
               setValueAs: (value) => value || undefined,
-            }
-            )}
+            })}
             className="mx-8 my-2 px-4 h-10 border rounded-lg"
             type="text"
             placeholder="Postal Code"
