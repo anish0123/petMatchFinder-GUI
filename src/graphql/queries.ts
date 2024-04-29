@@ -226,6 +226,36 @@ mutation DeleteAdoptionApplication($deleteAdoptionApplicationId: ID!) {
 }
 `;
 
+const getAnimalsByOwner = `
+query getAnimalsByOwner($ownerId: ID!) {
+  animalsByOwner(ownerId: $ownerId) {
+    adoptionStatus
+    animal_name
+    birthdate
+    category {
+      category_name
+    }
+    description
+    gender
+    id
+    image
+    listedDate
+    location {
+      coordinates
+    }
+    owner {
+      id
+      city
+      email
+      postalCode
+      streetAddress
+      user_name
+    }
+    weight
+  }
+}
+`;
+
 export {
   login,
   registerUser,
@@ -238,5 +268,6 @@ export {
   updateUser,
   getAdoptionApplicationById,
   modifyAdoptionApplication,
-  deleteAdoptionApplication
+  deleteAdoptionApplication,
+  getAnimalsByOwner
 };
