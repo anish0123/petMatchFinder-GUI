@@ -3,6 +3,7 @@ import {AdoptionApplication} from '../types/AdoptionApplication';
 import {doGraphQLFetch} from '../graphql/fetch';
 import {APIUrl} from '../constants';
 import {
+  deleteAdoptionApplication,
   getAdoptionApplicationById,
   modifyAdoptionApplication,
 } from '../graphql/queries';
@@ -25,7 +26,6 @@ const AnimalAdoptionDetailPage = () => {
 
   const onSubmit: SubmitHandler<AdoptionApplication> = async (data) => {
     try {
-      console.log('data: ', data);
       const response = await doGraphQLFetch(
         APIUrl,
         modifyAdoptionApplication,
@@ -44,6 +44,24 @@ const AnimalAdoptionDetailPage = () => {
     }
   };
 
+  const onDelete = async () => {
+    try {
+      const response = await doGraphQLFetch(
+        APIUrl,
+        deleteAdoptionApplication,
+        {
+          deleteAdoptionApplicationId: adoption?.id,
+        },
+        token!,
+      );
+      if (response.deleteAdoptionApplication) {
+        window.open('/profile', '_self');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     (async () => {
       const response = await doGraphQLFetch(
@@ -52,7 +70,9 @@ const AnimalAdoptionDetailPage = () => {
         {adoptionApplicationByIdId: adoptionId},
         token!,
       );
-      setAdoption(response.adoptionApplicationById);
+      if (response.adoptionApplicationById) {
+        setAdoption(response.adoptionApplicationById);
+      }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, refetch]);
@@ -113,6 +133,14 @@ const AnimalAdoptionDetailPage = () => {
         <h1 className="font-semibold">
           Adoption Status: {adoption?.applicationStatus}
         </h1>
+        <div>
+          <button
+            className="content-center mt-2 h-10 inline-flex items-center px-2 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110"
+            onClick={onDelete}
+          >
+            Delete Application
+          </button>
+        </div>
       </div>
     </div>
   );

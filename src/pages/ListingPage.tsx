@@ -13,7 +13,9 @@ const ListingPage = () => {
     (async () => {
       try {
         const animalsResponse = await doGraphQLFetch(APIUrl, getAllAnimals, {});
-        setAnimals(animalsResponse.animals);
+        if (animalsResponse.animals) {
+          setAnimals(animalsResponse.animals);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -23,7 +25,7 @@ const ListingPage = () => {
   return (
     <div className="w-screen h-screen">
       <NavBar />
-      <div className='grid'>
+      <div className="grid">
         <h1 className="text-4xl font-semibold text-gray-800 justify-self-center mt-8">
           Available Pets
         </h1>

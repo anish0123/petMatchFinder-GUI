@@ -209,6 +209,23 @@ mutation modifyApplication($modifyAdoptionApplicationId: ID!, $input: AdoptionAp
 }
 `;
 
+const deleteAdoptionApplication = `
+mutation DeleteAdoptionApplication($deleteAdoptionApplicationId: ID!) {
+  deleteAdoptionApplication(id: $deleteAdoptionApplicationId) {
+    applicationStatus
+    appliedDate
+    description
+    id
+    animal {
+      id
+    }
+    adopter {
+      id
+    }
+  }
+}
+`;
+
 export {
   login,
   registerUser,
@@ -220,5 +237,6 @@ export {
   getAdoptionApplicationsByUser,
   updateUser,
   getAdoptionApplicationById,
-  modifyAdoptionApplication
+  modifyAdoptionApplication,
+  deleteAdoptionApplication
 };

@@ -15,12 +15,14 @@ const AnimalDetailPage = () => {
       const response = await doGraphQLFetch(APIUrl, getAnimalById, {
         animalByIdId: animalId,
       });
-      setAnimal(response.animalById);
+      if (response.getAnimalById) {
+        setAnimal(response.animalById);
+      }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animalId]);
 
-  const onAdopt =  () => {
+  const onAdopt = () => {
     window.open(`/animals/${animalId}/adopt`, '_self');
   };
 

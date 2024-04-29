@@ -17,7 +17,10 @@ const AnimalAdoptionPage = () => {
       const response = await doGraphQLFetch(APIUrl, getAnimalById, {
         animalByIdId: animalId,
       });
-      setAnimal(response.animalById);
+      if(response.animalById) {
+        setAnimal(response.animalById);
+      }
+      
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animalId]);
@@ -32,6 +35,7 @@ const AnimalAdoptionPage = () => {
           description: data.description,
           animal: animalId,
           appliedDate: new Date().toUTCString(),
+          applicationStatus: 'pending',
         },
       },
       token!,
