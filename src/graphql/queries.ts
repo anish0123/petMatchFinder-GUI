@@ -173,5 +173,52 @@ mutation UpdateUser($user: UserModify!) {
   }
 }
 `;
+const getAdoptionApplicationById = `
+query AdoptionApplicationById($adoptionApplicationByIdId: ID!) {
+  adoptionApplicationById(id: $adoptionApplicationByIdId) {
+    adopter {
+      id
+    }
+    animal {
+      animal_name
+      birthdate
+      id
+      description
+      category {
+        category_name
+      }
+    }
+    applicationStatus
+    appliedDate
+    description
+    id
+  }
+}
+`;
 
-export {login, registerUser, checkToken, getAllAnimals, getAnimalById, addAdoptionApplication, getUserById, getAdoptionApplicationsByUser, updateUser};
+const modifyAdoptionApplication = `
+mutation modifyApplication($modifyAdoptionApplicationId: ID!, $input: AdoptionApplicationModify!) {
+  modifyAdoptionApplication(id: $modifyAdoptionApplicationId, input: $input) {
+    description
+    appliedDate
+    applicationStatus
+    animal {
+      id
+    }
+  }
+}
+`;
+
+export {
+  login,
+  registerUser,
+  checkToken,
+  getAllAnimals,
+  getAnimalById,
+  addAdoptionApplication,
+  getUserById,
+  getAdoptionApplicationsByUser,
+  updateUser,
+  getAdoptionApplicationById,
+  modifyAdoptionApplication
+};

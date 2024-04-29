@@ -9,11 +9,17 @@ type AdoptionApplicationContainerFormProps = {
 const AdoptionApplicationContainer = ({
   application,
 }: AdoptionApplicationContainerFormProps) => {
+  
+  const openAdoptionPage = (id: string) => {
+    window.open(`/animal-adoption/${id}`, '_self');
+  }
+
   return (
     <>
       <div
         key={application.id}
-        className="w-full h-full grid place-items-center border shadow-lg rounded-md p-4"
+        className="w-full h-full grid place-items-center border shadow-lg rounded-md p-4 hover:cursor-pointer"
+        onClick={() => openAdoptionPage(application.id)}
       >
         <h1>{application.animal.animal_name}</h1>
         <img

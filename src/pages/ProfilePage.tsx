@@ -5,6 +5,7 @@ import {APIUrl} from '../constants';
 import {checkToken, getAdoptionApplicationsByUser} from '../graphql/queries';
 import {AdoptionApplication} from '../types/AdoptionApplication';
 import AdoptionApplicationContainer from '../components/AdoptionContainer';
+import NavBar from '../components/NavBar';
 
 const ProfilePage = () => {
   const [user, setUser] = useState<User>();
@@ -29,6 +30,7 @@ const ProfilePage = () => {
   }, [token]);
   return (
     <div className="w-screen h-screen">
+      <NavBar />
       <div className="px-10 py-16">
         <div className='grid grid-cols-4'>
           <div>
