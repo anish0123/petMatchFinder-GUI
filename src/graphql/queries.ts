@@ -256,6 +256,41 @@ query getAnimalsByOwner($ownerId: ID!) {
 }
 `;
 
+const getAllCategories = `
+query Query {
+  categories {
+    category_name
+    id
+  }
+}
+`;
+
+const addAnimal = `
+mutation addAnimal($animal: AnimalInput!) {
+  addAnimal(animal: $animal) {
+    animal_name
+    birthdate
+    category {
+      category_name
+      id
+    }
+    gender
+    image
+    id
+    listedDate
+    location {
+      coordinates
+      type
+    }
+    owner {
+      id
+    }
+  }
+}
+`;
+
+
+
 export {
   login,
   registerUser,
@@ -269,5 +304,7 @@ export {
   getAdoptionApplicationById,
   modifyAdoptionApplication,
   deleteAdoptionApplication,
-  getAnimalsByOwner
+  getAnimalsByOwner,
+  getAllCategories,
+  addAnimal
 };
