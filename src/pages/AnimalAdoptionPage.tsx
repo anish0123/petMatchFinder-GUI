@@ -26,7 +26,6 @@ const AnimalAdoptionPage = () => {
   }, [animalId]);
 
   const onSubmit = async (data: AdoptionFormInput) => {
-    console.log('token: ', token);
     const response = await doGraphQLFetch(
       APIUrl,
       addAdoptionApplication,
@@ -34,7 +33,7 @@ const AnimalAdoptionPage = () => {
         input: {
           description: data.description,
           animal: animalId,
-          appliedDate: new Date().toUTCString(),
+          appliedDate: new Date(),
           applicationStatus: 'pending',
         },
       },

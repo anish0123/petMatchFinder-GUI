@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import 'leaflet/dist/leaflet.css';
 import {User} from '../types/User';
 import {doGraphQLFetch} from '../graphql/fetch';
 import {APIUrl} from '../constants';
@@ -8,11 +9,20 @@ import {Animal} from '../types/Animal';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {Category} from '../types/Category';
 import {Point} from 'geojson';
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMapEvents,
+} from 'react-leaflet';
+import {LatLngLiteral} from 'leaflet';
 
 const AddAnimalPage = () => {
   const [user, setUser] = useState<User>();
   const [categories, setCategories] = useState<Category[]>([]);
   const token = localStorage.getItem('token');
+  const [clickedPosition, setClickedPosition] = useState<LatLngLiteral>();
 
   const {
     register,
@@ -35,28 +45,33 @@ const AddAnimalPage = () => {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-
   const onSubmit: SubmitHandler<Animal> = async (data) => {
     try {
-      const location: Point = {type: 'Point', coordinates: [10, 10]};
-      data.location = location;
+      if (clickedPosition) {
+        const location: Point = {
+          type: 'Point',
+          coordinates: [clickedPosition?.lat, clickedPosition?.lng],
+        };
+        data.location = location;
+      }
+
       data.listedDate = new Date();
       data.weight = Number(data.weight);
       data.adoptionStatus = 'available';
       if (data.category === '') {
         data.category = categories[0].id;
       }
-        const response = await doGraphQLFetch(
-          APIUrl,
-          addAnimal,
-          {
-            animal: data,
-          },
-          token!,
-        );
+      const response = await doGraphQLFetch(
+        APIUrl,
+        addAnimal,
+        {
+          animal: data,
+        },
+        token!,
+      );
 
       console.log(data);
-        console.log('response: ', response);
+      console.log('response: ', response);
     } catch (error) {
       console.error('error: ', error);
     }
@@ -73,6 +88,25 @@ const AddAnimalPage = () => {
           <h1 className="justify-self-center text-2xl font-semibold text-gray-800">
             Register
           </h1>
+          <MapContainer
+            center={[60.1699, 24.9384]}
+            zoom={5}
+            scrollWheelZoom={false}
+            style={{height: '400px', width: '100%'}}
+          >
+            <MapClickHandler setClickedPosition={setClickedPosition} />
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {clickedPosition ? (
+              <Marker position={[clickedPosition?.lat, clickedPosition?.lng]}>
+                <Popup>Selected postion</Popup>
+              </Marker>
+            ) : (
+              <></>
+            )}
+          </MapContainer>
           <input
             type="text"
             {...register('animal_name', {required: true})}
@@ -131,6 +165,7 @@ const AddAnimalPage = () => {
           <textarea
             {...register('description', {required: true})}
             placeholder="description"
+            className="mx-8 my-2 px-4 h-40 border rounded-lg"
           />
 
           <div className="grid place-items-center">
@@ -145,6 +180,20 @@ const AddAnimalPage = () => {
       </div>
     </div>
   );
+};
+
+const MapClickHandler = ({
+  setClickedPosition,
+}: {
+  setClickedPosition: (position: LatLngLiteral) => void;
+}) => {
+  useMapEvents({
+    click(event) {
+      setClickedPosition(event.latlng);
+    },
+  });
+
+  return null;
 };
 
 export default AddAnimalPage;
