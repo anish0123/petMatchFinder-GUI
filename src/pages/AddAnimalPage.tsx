@@ -45,8 +45,15 @@ const AddAnimalPage = () => {
   return (
     <div className="w-screen h-screen">
       <NavBar />
-      <div className="px-10 py-16">
-        <AnimalForm onSubmit={onSubmit} categories={categories} editForm={false} />
+      <div className="px-10 py-16 grid">
+        <h1 className="justify-self-center text-2xl font-semibold text-gray-800 pb-4">
+          Register
+        </h1>
+        <AnimalForm
+          onSubmit={onSubmit}
+          categories={categories}
+          editForm={false}
+        />
       </div>
     </div>
   );

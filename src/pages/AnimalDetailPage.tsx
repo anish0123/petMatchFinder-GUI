@@ -35,6 +35,10 @@ const AnimalDetailPage = () => {
     window.open(`/animals/${animalId}/adopt`, '_self');
   };
 
+  const onEdit = () => {
+    window.open(`/animals/${animalId}/edit`, '_self');
+  }
+
   const processCategory = (category: Category |string |undefined): Category |undefined => {
     if (typeof category !== "string") {
       return category;
@@ -73,7 +77,7 @@ const AnimalDetailPage = () => {
               {animal?.owner.id === user?.id ? (
                 <button
                   className="mt-4 relative overflow-hidden rounded-lg h-12 group hover:animate-pulse hover:shadow-lg hover:scale-105 transition duration-500 before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-br before:from-pink-400 before:via-purple-400 before:to-indigo-400"
-                  onClick={onAdopt}
+                  onClick={onEdit}
                 >
                   <span className="relative text-white font-bold px-8 py-8">
                     {' '}

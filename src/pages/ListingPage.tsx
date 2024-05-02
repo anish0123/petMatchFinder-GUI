@@ -24,7 +24,7 @@ const ListingPage = () => {
 
   return (
     <div className="w-screen h-screen">
-      <NavBar />
+      <NavBar disableBackButton />
       <div className="grid">
         <h1 className="text-4xl font-semibold text-gray-800 justify-self-center mt-8">
           Available Pets

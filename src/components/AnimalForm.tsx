@@ -69,9 +69,6 @@ const AnimalForm = ({onSubmit, categories, editForm}: AdoptionFormProps) => {
         className="grid grid-flow-row mt-6"
         onSubmit={handleSubmit(onSubmitForm)}
       >
-        <h1 className="justify-self-center text-2xl font-semibold text-gray-800 pb-4">
-          Register
-        </h1>
         <MapContainer
           center={[60.1699, 24.9384]}
           zoom={5}

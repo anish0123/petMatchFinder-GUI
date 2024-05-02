@@ -1,6 +1,12 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import logo from '../assets/petMatchFinderLogo.png';
 
-const NavBar = () => {
+type NavBarProps = {
+  disableBackButton?: boolean;
+}
+
+const NavBar = ({disableBackButton}: NavBarProps) => {
   const onLogout = () => {
     localStorage.removeItem('token');
     window.open('/', '_self');
@@ -9,10 +15,21 @@ const NavBar = () => {
   const viewProfile = () => {
     window.open('/profile', '_self');
   }
+  
+  const onClickBack = () => {
+    history.back();
+  }
 
   return (
     <>
       <div className="h-14 bg-gray-50 border-b-2 shadow-lg grid grid-flow-col grid-cols-8 px-8">
+        {disableBackButton ? (<></>) : (
+           <button className='col-start-1 font-semibold w-fit underline' onClick={onClickBack}>
+           <FontAwesomeIcon icon={faArrowLeft} className='pr-2' />
+             Back
+           </button>
+        )}
+       
         <img src={logo} className="h-14 w-20 justify-self-center col-start-4" />
         <div className='justify-self-end col-start-7 col-span-2 gap-4 grid grid-cols-2'>
           <button className="content-center mt-2 h-3/5 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-8 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100" onClick={viewProfile}>
