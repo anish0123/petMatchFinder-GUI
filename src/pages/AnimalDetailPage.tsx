@@ -6,6 +6,7 @@ import {checkToken, getAnimalById} from '../graphql/queries';
 import {useParams} from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import {User} from '../types/User';
+import { Category } from '../types/Category';
 
 const AnimalDetailPage = () => {
   const [animal, setAnimal] = useState<Animal>();
@@ -34,6 +35,13 @@ const AnimalDetailPage = () => {
     window.open(`/animals/${animalId}/adopt`, '_self');
   };
 
+  const processCategory = (category: Category |string |undefined): Category |undefined => {
+    if (typeof category !== "string") {
+      return category;
+    }
+    return;
+  }
+
   return (
     <div className="w-screen h-screen">
       <NavBar />
@@ -42,18 +50,24 @@ const AnimalDetailPage = () => {
           {animal?.animal_name}
         </h1>
 
-        <div className="pt-4">
+        <div className="pt-4 h-fit">
           <img
             src={`${FileUrl}${animal?.image}`}
             alt={animal?.animal_name}
             className="w-1/2 h-1/2"
           />
           <div className='pt-4 pl-4'>
-            <p>{animal?.category.category_name}</p>
-            <p>{animal?.description}</p>
-            <p>
-              Currently at: {animal?.owner.user_name},{' '}
-              {animal?.owner.streetAddress}
+            <p className='pb-4'><strong>Category: </strong>{processCategory(animal?.category)?.category_name}</p>
+            <h6><strong>Description: </strong></h6>
+            <p className='pb-4'>{animal?.description}</p>
+            
+            <p className='pb-4'><strong>Gender: </strong>{animal?.gender}</p>
+            <p className='pb-4'><strong>Date of birth: </strong>{animal?.birthdate.toString()}</p>
+            <p className='pb-4'><strong>Listed at: </strong>{animal?.listedDate.toString()}</p>
+            <p className='pb-4'><strong>Adoption Status: </strong>{animal?.adoptionStatus}</p>
+            <p className='pb-4'>
+              <strong>Listed By: </strong>{animal?.owner.user_name},{' '}
+              {animal?.owner.streetAddress},{animal?.owner.postalCode} {animal?.owner.city}
             </p>
             <div>
               {animal?.owner.id === user?.id ? (

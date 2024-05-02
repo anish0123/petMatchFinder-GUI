@@ -5,7 +5,7 @@ import {User} from './User';
 type Animal = {
   id: string;
   animal_name: string;
-  category: Category | string;
+  category: Category |string;
   birthdate: Date;
   owner: User;
   gender: 'male' | 'female';
