@@ -6,13 +6,26 @@ import {checkToken, getAnimalById} from '../graphql/queries';
 import {useParams} from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import {User} from '../types/User';
-import { Category } from '../types/Category';
+import {Category} from '../types/Category';
+import {Socket, io} from 'socket.io-client';
+import {ClientToServerEvents, ServerToClientEvents} from '../types/Socket';
 
 const AnimalDetailPage = () => {
   const [animal, setAnimal] = useState<Animal>();
+  const [reFetchAnimal, setRefetchAnimal] = useState<boolean>(false);
   const {animalId} = useParams();
   const [user, setUser] = useState<User>();
   const token = localStorage.getItem('token');
+
+  // socket.io client
+  const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
+    import.meta.env.VITE_SOCKET_URL,
+  );
+
+  socket.on('modifyAnimal', (message) => {
+    console.log("message: ", message);
+    setRefetchAnimal(!reFetchAnimal);
+  });
 
   useEffect(() => {
     (async () => {
@@ -29,7 +42,7 @@ const AnimalDetailPage = () => {
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animalId]);
+  }, [animalId, reFetchAnimal]);
 
   const onAdopt = () => {
     window.open(`/animals/${animalId}/adopt`, '_self');
@@ -37,14 +50,16 @@ const AnimalDetailPage = () => {
 
   const onEdit = () => {
     window.open(`/animals/${animalId}/edit`, '_self');
-  }
+  };
 
-  const processCategory = (category: Category |string |undefined): Category |undefined => {
-    if (typeof category !== "string") {
+  const processCategory = (
+    category: Category | string | undefined,
+  ): Category | undefined => {
+    if (typeof category !== 'string') {
       return category;
     }
     return;
-  }
+  };
 
   return (
     <div className="w-screen h-screen">
@@ -60,18 +75,36 @@ const AnimalDetailPage = () => {
             alt={animal?.animal_name}
             className="w-1/2 h-1/2"
           />
-          <div className='pt-4 pl-4'>
-            <p className='pb-4'><strong>Category: </strong>{processCategory(animal?.category)?.category_name}</p>
-            <h6><strong>Description: </strong></h6>
-            <p className='pb-4'>{animal?.description}</p>
-            
-            <p className='pb-4'><strong>Gender: </strong>{animal?.gender}</p>
-            <p className='pb-4'><strong>Date of birth: </strong>{animal?.birthdate.toString()}</p>
-            <p className='pb-4'><strong>Listed at: </strong>{animal?.listedDate.toString()}</p>
-            <p className='pb-4'><strong>Adoption Status: </strong>{animal?.adoptionStatus}</p>
-            <p className='pb-4'>
-              <strong>Listed By: </strong>{animal?.owner.user_name},{' '}
-              {animal?.owner.streetAddress},{animal?.owner.postalCode} {animal?.owner.city}
+          <div className="pt-4 pl-4">
+            <p className="pb-4">
+              <strong>Category: </strong>
+              {processCategory(animal?.category)?.category_name}
+            </p>
+            <h6>
+              <strong>Description: </strong>
+            </h6>
+            <p className="pb-4">{animal?.description}</p>
+
+            <p className="pb-4">
+              <strong>Gender: </strong>
+              {animal?.gender}
+            </p>
+            <p className="pb-4">
+              <strong>Date of birth: </strong>
+              {animal?.birthdate.toString()}
+            </p>
+            <p className="pb-4">
+              <strong>Listed at: </strong>
+              {animal?.listedDate.toString()}
+            </p>
+            <p className="pb-4">
+              <strong>Adoption Status: </strong>
+              {animal?.adoptionStatus}
+            </p>
+            <p className="pb-4">
+              <strong>Listed By: </strong>
+              {animal?.owner.user_name}, {animal?.owner.streetAddress},
+              {animal?.owner.postalCode} {animal?.owner.city}
             </p>
             <div>
               {animal?.owner.id === user?.id ? (

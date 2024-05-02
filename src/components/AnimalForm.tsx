@@ -53,7 +53,7 @@ const AnimalForm = ({onSubmit, categories, editForm}: AdoptionFormProps) => {
       }
       data.weight = Number(data.weight);
       data.adoptionStatus = 'available';
-      if (data.category === '') {
+      if (!data.category) {
         data.category = categories[0].id;
       }
       

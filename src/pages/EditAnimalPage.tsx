@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar';
 import {Category} from '../types/Category';
 import {doGraphQLFetch} from '../graphql/fetch';
 import {APIUrl} from '../constants';
-import {editAnimal, getAllCategories, getAnimalById} from '../graphql/queries';
+import {modifyAnimal, getAllCategories, getAnimalById} from '../graphql/queries';
 import {Animal} from '../types/Animal';
 import {useParams} from 'react-router-dom';
 
@@ -23,7 +23,6 @@ const EditAnimalPage = () => {
       const animalResponse = await doGraphQLFetch(APIUrl, getAnimalById, {
         animalByIdId: animalId,
       });
-      console.log('animalResponse: ', animalResponse);
       if (animalResponse?.animalById) {
         setAnimal(animalResponse.animalById);
       }
@@ -43,7 +42,7 @@ const EditAnimalPage = () => {
       console.log('data: ', data);
       const response = await doGraphQLFetch(
         APIUrl,
-        editAnimal,
+        modifyAnimal,
         {
           modifyAnimalId: animalId,
           animal: data,
@@ -52,7 +51,7 @@ const EditAnimalPage = () => {
       );
       if (response.modifyAnimal) {
         alert('Animal edited successfully!');
-        window.open(`/animals/${response.modifyAnimal.id}`, '_self');
+        window.open(`/animals/${response.modifyAnimal.animal.id}`, '_self');
       }
     } catch (error) {
       console.error('error: ', error);

@@ -5,9 +5,22 @@ import {getAllAnimals} from '../graphql/queries';
 import {doGraphQLFetch} from '../graphql/fetch';
 import NavBar from '../components/NavBar';
 import AnimalContainer from '../components/AnimalContainer';
+import { io, Socket } from "socket.io-client";
+import { ClientToServerEvents, ServerToClientEvents } from '../types/Socket';
 
 const ListingPage = () => {
   const [animals, setAnimals] = useState<Animal[]>([]);
+  const [fetchAnimals, setFetchAnimals] = useState<boolean>(true);
+
+  // socket.io client
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
+  import.meta.env.VITE_SOCKET_URL
+);
+
+socket.on('addAnimal', (message) => {
+  console.log("message: ", message);
+  setFetchAnimals(!fetchAnimals);
+})
 
   useEffect(() => {
     (async () => {
@@ -20,7 +33,7 @@ const ListingPage = () => {
         console.error(error);
       }
     })();
-  }, []);
+  }, [fetchAnimals]);
 
   return (
     <div className="w-screen h-screen">

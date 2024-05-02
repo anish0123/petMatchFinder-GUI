@@ -35,7 +35,7 @@ const AddAnimalPage = () => {
       );
       if (response.addAnimal) {
         alert('Animal added successfully!');
-        window.open(`/animals/${response.addAnimal.id}`, '_self');
+        window.open(`/animals/${response.addAnimal.animal.id}`, '_self');
       }
     } catch (error) {
       console.error('error: ', error);

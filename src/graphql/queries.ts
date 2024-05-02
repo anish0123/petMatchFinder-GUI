@@ -268,31 +268,38 @@ query Query {
 const addAnimal = `
 mutation addAnimal($animal: AnimalInput!) {
   addAnimal(animal: $animal) {
-    animal_name
-    birthdate
-    category {
-      category_name
+    message
+    animal {
+      animal_name
+      birthdate
+      weight
+      category {
+        category_name
+        id
+      }
+      gender
+      image
       id
+      listedDate
+      location {
+        coordinates
+        type
+      }
+      owner {
+        id
+      }
     }
-    gender
-    image
-    id
-    listedDate
-    location {
-      coordinates
-      type
-    }
-    owner {
-      id
-    }
+   
   }
 }
 `;
 
-const editAnimal = `
+const modifyAnimal = `
 mutation modifyAnimal($modifyAnimalId: ID!, $animal: AnimalModify!) {
   modifyAnimal(id: $modifyAnimalId, animal: $animal) {
-    description
+    message
+    animal {
+      description
     adoptionStatus
     animal_name
     birthdate
@@ -312,6 +319,7 @@ mutation modifyAnimal($modifyAnimalId: ID!, $animal: AnimalModify!) {
       id
     }
     weight
+    }
   }
 }
 `;
@@ -334,5 +342,5 @@ export {
   getAnimalsByOwner,
   getAllCategories,
   addAnimal,
-  editAnimal
+  modifyAnimal
 };
