@@ -24,6 +24,7 @@ const AddAnimalPage = () => {
 
   const onSubmit = async (data: Animal) => {
     try {
+      data.listedDate = new Date();
       const response = await doGraphQLFetch(
         APIUrl,
         addAnimal,
@@ -45,7 +46,7 @@ const AddAnimalPage = () => {
     <div className="w-screen h-screen">
       <NavBar />
       <div className="px-10 py-16">
-        <AnimalForm onSubmit={onSubmit} categories={categories} />
+        <AnimalForm onSubmit={onSubmit} categories={categories} editForm={false} />
       </div>
     </div>
   );

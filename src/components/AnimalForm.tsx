@@ -11,10 +11,11 @@ import { Point } from 'geojson';
 
 type AdoptionFormProps = {
   onSubmit: (data: Animal) => void;
+  editForm: boolean
   categories: Category[];
 };
 
-const AnimalForm = ({onSubmit, categories}: AdoptionFormProps) => {
+const AnimalForm = ({onSubmit, categories, editForm}: AdoptionFormProps) => {
   const [clickedPosition, setClickedPosition] = useState<LatLngLiteral>();
   const {
     register,
@@ -26,8 +27,9 @@ const AnimalForm = ({onSubmit, categories}: AdoptionFormProps) => {
 
   const onSubmitForm: SubmitHandler<Animal> = async (data) => {
     try {
-      const imageFile = data.image![0];
-      const formData = new FormData();
+      const imageFile = data.image[0];
+      if(imageFile) {
+        const formData = new FormData();
       formData.append('cat', imageFile);
       const imageUpload = await fetch(`${UploadUrl}/upload`, {
         method: 'POST',
@@ -36,8 +38,8 @@ const AnimalForm = ({onSubmit, categories}: AdoptionFormProps) => {
         },
         body: formData,
       });
-
       const imageUploadData = (await imageUpload.json()) as UploadResponse;
+
       if (clickedPosition) {
         const location: Point = {
           type: 'Point',
@@ -45,14 +47,16 @@ const AnimalForm = ({onSubmit, categories}: AdoptionFormProps) => {
         };
         data.location = location;
       }
-
-      data.listedDate = new Date();
+      data.image = imageUploadData.data.filename;
+      } else {
+        data.image = "";
+      }
       data.weight = Number(data.weight);
       data.adoptionStatus = 'available';
       if (data.category === '') {
         data.category = categories[0].id;
       }
-      data.image = imageUploadData.data.filename;
+      
       onSubmit(data);
     } catch (error) {
       console.log('error: ', error);
@@ -89,14 +93,19 @@ const AnimalForm = ({onSubmit, categories}: AdoptionFormProps) => {
         </MapContainer>
         <input
           type="text"
-          {...register('animal_name', {required: true})}
+          {...register('animal_name', {required: editForm ? false: true,
+            setValueAs: (value) => value || undefined,
+
+          })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
           placeholder="Name"
         />
         {errors.animal_name && <span>Name is required</span>}
         <input
           type="date"
-          {...register('birthdate', {required: true})}
+          {...register('birthdate', {required: editForm ? false: true,
+            setValueAs: (value) => value || undefined,
+          })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
         />
         {errors.birthdate && <span>Birthdate is required</span>}
@@ -104,7 +113,9 @@ const AnimalForm = ({onSubmit, categories}: AdoptionFormProps) => {
         <div className="grid grid-flow-col">
           <select
             className="mx-8 my-2 px-4 h-10 border rounded-lg"
-            {...register('gender')}
+            {...register('gender', {
+              setValueAs: (value) => value || undefined,
+            })}
           >
             <option value={'male'}>Male</option>
             <option value={'female'}>Female</option>
@@ -114,7 +125,9 @@ const AnimalForm = ({onSubmit, categories}: AdoptionFormProps) => {
           )}
           <select
             className="mx-8 my-2 px-4 h-10 border rounded-lg"
-            {...register('category')}
+            {...register('category', {
+              setValueAs: (value) => value || undefined,
+            })}
           >
             {categories.length > 0 &&
               categories.map((category, i) => {
@@ -128,14 +141,18 @@ const AnimalForm = ({onSubmit, categories}: AdoptionFormProps) => {
           {errors.category && <span>Category is required</span>}
         </div>
         <input
-          {...register('image', {required: true})}
+          {...register('image', {required: editForm ? false: true,
+            setValueAs: (value) => value || undefined,
+          })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
           type="file"
         />
         {errors.image && <span>Image is required</span>}
 
         <input
-          {...register('weight', {required: true, min: 0})}
+          {...register('weight', {required: editForm ? false: true, min: 0,
+            setValueAs: (value) => value || undefined,
+          })}
           type="number"
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
         />
@@ -143,7 +160,9 @@ const AnimalForm = ({onSubmit, categories}: AdoptionFormProps) => {
           <span>Weight is required & should be greater than 0</span>
         )}
         <textarea
-          {...register('description', {required: true})}
+          {...register('description', {required: editForm ? false: true,
+            setValueAs: (value) => value || undefined,
+          })}
           placeholder="description"
           className="mx-8 my-2 px-4 h-40 border rounded-lg"
         />

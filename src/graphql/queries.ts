@@ -289,6 +289,33 @@ mutation addAnimal($animal: AnimalInput!) {
 }
 `;
 
+const editAnimal = `
+mutation modifyAnimal($modifyAnimalId: ID!, $animal: AnimalModify!) {
+  modifyAnimal(id: $modifyAnimalId, animal: $animal) {
+    description
+    adoptionStatus
+    animal_name
+    birthdate
+    category {
+      category_name
+      id
+    }
+    gender
+    id
+    image
+    listedDate
+    location {
+      coordinates
+      type
+    }
+    owner {
+      id
+    }
+    weight
+  }
+}
+`;
+
 
 
 export {
@@ -306,5 +333,6 @@ export {
   deleteAdoptionApplication,
   getAnimalsByOwner,
   getAllCategories,
-  addAnimal
+  addAnimal,
+  editAnimal
 };
