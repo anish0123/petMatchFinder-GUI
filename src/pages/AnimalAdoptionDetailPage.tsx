@@ -49,23 +49,31 @@ const AnimalAdoptionDetailPage = () => {
 
   const onApplicationStatusChange = async (status: string) => {
     try {
-      const response = await doGraphQLFetch(
-        APIUrl,
-        modifyAdoptionApplication,
-        {
-          input: {applicationStatus: status},
-          modifyAdoptionApplicationId: adoption?.id,
-        },
-        token!,
-      );
-      if (response.modifyAdoptionApplication) {
-        setRefetch(!refetch);
+      let text = '';
+      if (status === 'approved') {
+        text = `Are you sure you want to approve this application?`;
+      } else {
+        text = `Are you sure you want to reject this application?`;
       }
-      console.log("response: ", response);
+      
+      if (confirm(text)) {
+        const response = await doGraphQLFetch(
+          APIUrl,
+          modifyAdoptionApplication,
+          {
+            input: {applicationStatus: status},
+            modifyAdoptionApplicationId: adoption?.id,
+          },
+          token!,
+        );
+        if (response.modifyAdoptionApplication) {
+          setRefetch(!refetch);
+        }
+      }
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   const onDelete = async () => {
     try {
@@ -179,10 +187,10 @@ const AnimalAdoptionDetailPage = () => {
           </div>
         )}
         {adoption?.animal.owner?.id === user?.id && (
-          <div className='pt-4'>
+          <div className="pt-4">
             <button
               className=" mr-4 content-center mt-2 h-10 inline-flex items-center px-2 bg-green-600 transition ease-in-out delay-75 hover:bg-green-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110"
-              onClick={ () => onApplicationStatusChange('approved') }
+              onClick={() => onApplicationStatusChange('approved')}
             >
               Approve Application
             </button>
