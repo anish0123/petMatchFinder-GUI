@@ -68,7 +68,7 @@ export default function App() {
       element: <AnimalAdoptionDetailPage />
     },
     {
-      path: "/lister/profile",
+      path: "/profile/:userId",
       element: <ListerProfilePage />
     },
     {
