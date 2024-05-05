@@ -152,6 +152,7 @@ const AnimalForm = ({onSubmit, categories, editForm}: AdoptionFormProps) => {
           })}
           type="number"
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
+          placeholder="Weight"
         />
         {errors.weight && (
           <span>Weight is required & should be greater than 0</span>

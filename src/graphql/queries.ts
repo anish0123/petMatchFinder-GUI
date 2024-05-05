@@ -184,8 +184,13 @@ query AdoptionApplicationById($adoptionApplicationByIdId: ID!) {
       birthdate
       id
       description
+      image
       category {
         category_name
+      }
+      owner {
+        id
+        user_name
       }
     }
     applicationStatus
@@ -324,6 +329,27 @@ mutation modifyAnimal($modifyAnimalId: ID!, $animal: AnimalModify!) {
 }
 `;
 
+const getAdoptionApplicationByAnimal = `
+query Query($animalId: ID!) {
+  adoptionApplicationsByAnimal(animalId: $animalId) {
+    adopter {
+      id
+      email
+      city
+      postalCode
+      streetAddress
+      user_name
+    }
+    animal {
+      id
+    }
+    applicationStatus
+    appliedDate
+    description
+    id
+  }
+}`;
+
 
 
 export {
@@ -342,5 +368,6 @@ export {
   getAnimalsByOwner,
   getAllCategories,
   addAnimal,
-  modifyAnimal
+  modifyAnimal,
+  getAdoptionApplicationByAnimal
 };

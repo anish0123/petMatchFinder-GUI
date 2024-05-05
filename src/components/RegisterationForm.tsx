@@ -6,11 +6,8 @@ import { APIUrl } from '../constants';
 import { registerUser } from '../graphql/queries';
 import { Link } from 'react-router-dom';
 
-type RegisterationFormProps = {
-    role: 'admin' | 'adopter' |'lister';
-}
 
-const RegisterationForm = ({role}: RegisterationFormProps) => {
+const RegisterationForm = () => {
   const {
     register,
     handleSubmit,
@@ -24,7 +21,7 @@ const RegisterationForm = ({role}: RegisterationFormProps) => {
     data,
   ) => {
     try {
-      data.role = role;
+      data.role = "user";
       delete data.confirmPassword;
       const registerationData = (await doGraphQLFetch(APIUrl, registerUser, {
         user: data,
