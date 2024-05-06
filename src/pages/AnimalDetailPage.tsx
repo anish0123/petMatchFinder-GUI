@@ -48,17 +48,19 @@ const AnimalDetailPage = () => {
       if (response.animalById) {
         setAnimal(response.animalById);
       }
-      const adoptionApplicationsResponse = await doGraphQLFetch(
-        APIUrl,
-        getAdoptionApplicationByAnimal,
-        {
-          animalId: animalId,
-        },
-      );
-      if (adoptionApplicationsResponse.adoptionApplicationsByAnimal) {
-        setAdoptionApplications(
-          adoptionApplicationsResponse.adoptionApplicationsByAnimal,
+      if (response.owner.id === userResponse?.id) {
+        const adoptionApplicationsResponse = await doGraphQLFetch(
+          APIUrl,
+          getAdoptionApplicationByAnimal,
+          {
+            animalId: animalId,
+          },
         );
+        if (adoptionApplicationsResponse.adoptionApplicationsByAnimal) {
+          setAdoptionApplications(
+            adoptionApplicationsResponse.adoptionApplicationsByAnimal,
+          );
+        }
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps

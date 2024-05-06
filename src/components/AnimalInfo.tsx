@@ -1,12 +1,12 @@
 import {FileUrl} from '../constants';
 import {Animal} from '../types/Animal';
-import { Category } from '../types/Category';
-import { User } from '../types/User';
+import {Category} from '../types/Category';
+import {User} from '../types/User';
 
 type AnimalInfoProps = {
   animal: Animal;
   animalId: string;
-  user: User
+  user: User;
 };
 
 const AnimalInfo = ({animal, animalId, user}: AnimalInfoProps) => {
@@ -17,6 +17,10 @@ const AnimalInfo = ({animal, animalId, user}: AnimalInfoProps) => {
   const onEdit = () => {
     window.open(`/animals/${animalId}/edit`, '_self');
   };
+
+  const onProfileCheck = () => {
+    window.open(`/profile/${animal?.owner.id}`, '_self');
+  }
 
   const processCategory = (
     category: Category | string | undefined,
@@ -57,8 +61,10 @@ const AnimalInfo = ({animal, animalId, user}: AnimalInfoProps) => {
         </p>
         <p className="pb-4">
           <strong>Listed By: </strong>
-          {animal?.owner.user_name}, {animal?.owner.streetAddress},
-          {animal?.owner.postalCode} {animal?.owner.city}
+          <a onClick={onProfileCheck} className='underline hover:cursor-pointer'>
+            {animal?.owner.user_name}, {animal?.owner.streetAddress},
+            {animal?.owner.postalCode} {animal?.owner.city}
+          </a>
         </p>
         <div>
           {animal?.owner.id === user?.id ? (

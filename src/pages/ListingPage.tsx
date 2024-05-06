@@ -43,7 +43,7 @@ socket.on('addAnimal', (message) => {
           Available Pets
         </h1>
         <div className="grid grid-cols-3 gap-4 mt-8 px-8 border-t pt-2">
-          {animals.map((animal, i) => (
+          { animals.length !== 0 && animals.map((animal, i) => (
             <AnimalContainer key={i} animal={animal} />
           ))}
         </div>
