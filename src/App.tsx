@@ -17,6 +17,7 @@ import ListerProfilePage from './pages/ListerProfilePage';
 import AddAnimalPage from './pages/AddAnimalPage';
 import EditAnimalPage from './pages/EditAnimalPage';
 import Categories from './pages/Categories';
+import RatingPage from './pages/RatingPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -71,6 +72,10 @@ export default function App() {
     {
       path: "/profile/:userId",
       element: <ListerProfilePage />
+    },
+    {
+      path: "/profile/:userId/Rating",
+      element: <RatingPage />
     },
     {
       path: "/animals/:animalId/edit",

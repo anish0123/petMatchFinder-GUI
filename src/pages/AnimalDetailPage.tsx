@@ -48,7 +48,7 @@ const AnimalDetailPage = () => {
       if (response.animalById) {
         setAnimal(response.animalById);
       }
-      if (response.owner.id === userResponse?.id) {
+      if (response.owner?.id === userResponse?.id) {
         const adoptionApplicationsResponse = await doGraphQLFetch(
           APIUrl,
           getAdoptionApplicationByAnimal,

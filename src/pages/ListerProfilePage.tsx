@@ -6,7 +6,7 @@ import {getAnimalsByOwner, getUserById} from '../graphql/queries';
 import NavBar from '../components/NavBar';
 import {Animal} from '../types/Animal';
 import AnimalContainer from '../components/AnimalContainer';
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 const ListerProfilePage = () => {
   const [user, setUser] = useState<User>();
@@ -16,9 +16,14 @@ const ListerProfilePage = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await doGraphQLFetch(APIUrl, getUserById, {
-        userByIdId: userId
-      }, token!);
+      const response = await doGraphQLFetch(
+        APIUrl,
+        getUserById,
+        {
+          userByIdId: userId,
+        },
+        token!,
+      );
       if (response.userById) {
         setUser(response.userById);
       }
@@ -30,10 +35,9 @@ const ListerProfilePage = () => {
         },
         token!,
       );
-      
-      console.log("animalsResponse: ", animalsResponse);
+
+      console.log('animalsResponse: ', animalsResponse);
       if (animalsResponse.animalsByOwner) {
-        
         setAnimals(animalsResponse.animalsByOwner);
       }
     })();
@@ -42,14 +46,24 @@ const ListerProfilePage = () => {
   return (
     <div className="w-screen h-screen">
       <NavBar />
-      <div className="px-10 py-16">
-        <div className="grid grid-cols-4">
+      <div className="">
+        <div className="grid grid-cols-4 border-b shadow-lg px-10 py-16">
           <div>
             <h1 className="text-2xl font-semibold">{user?.user_name}</h1>
             <h1 className="text-base font-semibold">{user?.email}</h1>
             <h1 className="text-base font-semibold">
               {user?.streetAddress}, {user?.postalCode} {user?.city}
             </h1>
+          </div>
+          <div>
+            <button
+              className=" mt-4 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-8 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
+              onClick={() => {
+                window.open('/profile/update', '_self');
+              }}
+            >
+              Give Rating
+            </button>
           </div>
         </div>
 

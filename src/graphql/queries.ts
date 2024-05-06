@@ -391,6 +391,33 @@ query checkRole {
 }
 `;
 
+const getRatingsByRatedToUser = `
+query RatedTo($ratedTo: ID!) {
+  ratingByRatedToUser(ratedTo: $ratedTo) {
+    id
+    description
+    ratedBy {
+      id
+      email
+      city
+      postalCode
+      streetAddress
+      user_name
+    }
+    ratedDate
+    ratedTo {
+      id
+      email
+      city
+      postalCode
+      streetAddress
+      user_name
+    }
+    rating
+  }
+}
+`;
+
 export {
   login,
   registerUser,
@@ -412,5 +439,6 @@ export {
   addCategory,
   deleteCategory,
   modifyCategory,
-  checkRole
+  checkRole,
+  getRatingsByRatedToUser
 };

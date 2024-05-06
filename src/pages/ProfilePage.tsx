@@ -56,6 +56,7 @@ const ProfilePage = () => {
 
       console.log('animalsResponse: ', animalsResponse);
       if (animalsResponse.animalsByOwner) {
+        console.log("working");
         setAnimals(animalsResponse.animalsByOwner);
       }
     })();
