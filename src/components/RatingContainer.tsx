@@ -4,7 +4,7 @@ import {Rating as RatingStar} from '@mui/material';
 import {User} from '../types/User';
 import {doGraphQLFetch} from '../graphql/fetch';
 import {APIUrl} from '../constants';
-import {modifyRating} from '../graphql/queries';
+import {deleteRating, modifyRating} from '../graphql/queries';
 
 type RatingContainerProps = {
   rating: Rating;
@@ -35,6 +35,23 @@ const RatingContainer = ({rating, user}: RatingContainerProps) => {
     if (response.modifyRating) {
       alert('Rating updated successfully');
       setEditMode(false);
+    }
+  };
+
+  const onDelete = async () => {
+    const text = `Are you sure you want to delete your rating?`;
+    if (confirm(text)) {
+      const response = await doGraphQLFetch(
+        APIUrl,
+        deleteRating,
+        {
+          deleteRatingId: rating.id,
+        },
+        token!,
+      );
+      if (response.deleteRating) {
+        alert('Rating deleted successfully');
+      }
     }
   };
 
@@ -95,7 +112,10 @@ const RatingContainer = ({rating, user}: RatingContainerProps) => {
             </button>
           )}
           {(user?.id === rating.ratedBy.id || user?.role === 'admin') && (
-            <button className="content-center mt-2 h-3/5 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-red-600 pl-4 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100">
+            <button
+              className="content-center mt-2 h-3/5 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-red-600 pl-4 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
+              onClick={onDelete}
+            >
               Delete
             </button>
           )}

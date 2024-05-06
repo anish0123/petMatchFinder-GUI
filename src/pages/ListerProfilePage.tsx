@@ -35,8 +35,6 @@ const ListerProfilePage = () => {
         },
         token!,
       );
-
-      console.log('animalsResponse: ', animalsResponse);
       if (animalsResponse.animalsByOwner) {
         setAnimals(animalsResponse.animalsByOwner);
       }

@@ -39,6 +39,11 @@ const RatingPage = () => {
     setFetchRatings(!fetchRatings);
   });
 
+  socket.on('deleteRating', (message) => {
+    console.log('message: ', message);
+    setFetchRatings(!fetchRatings);
+  });
+
   const onSubmit = async () => {
     const data = {
       ratedTo: userId,
@@ -81,7 +86,7 @@ const RatingPage = () => {
         ratingResponse.ratingByRatedToUser?.forEach((rating: Rating) => {
           sum += rating.rating;
         });
-        setOverallRating(sum / ratingResponse.ratingByRatedToUser.length);
+        setOverallRating(sum / ratingResponse.ratingByRatedToUser?.length);
       }
     })();
     //eslint-disable-next-line
@@ -106,8 +111,8 @@ const RatingPage = () => {
           Ratings
         </h1>
         <div className="pt-4 pl-12">
-          {ratings.length !== 0 &&
-            ratings.map((rating, i) => (
+          {ratings?.length !== 0 &&
+            ratings?.map((rating, i) => (
               <div key={i}>
                 <RatingContainer rating={rating} user={user} />
               </div>

@@ -447,6 +447,17 @@ mutation ModifyRating($modifyRatingId: ID!, $rating: RatingModify!) {
 }
 `;
 
+const deleteRating = `
+mutation DeleteRating($deleteRatingId: ID!) {
+  deleteRating(id: $deleteRatingId) {
+    message
+    rating {
+      id
+    }
+  }
+}
+`;
+
 export {
   login,
   registerUser,
@@ -470,5 +481,6 @@ export {
   modifyCategory,
   getRatingsByRatedToUser,
   addRating,
-  modifyRating
+  modifyRating,
+  deleteRating
 };
