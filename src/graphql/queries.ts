@@ -362,7 +362,28 @@ mutation AddCategory($category: CategoryInput!) {
 }
 `;
 
+const deleteCategory = `
+mutation DeleteCategory($deleteCategoryId: ID!) {
+  deleteCategory(id: $deleteCategoryId) {
+    category {
+      category_name
+      id
+    }
+    message
+  }
+}
+`;
 
+const modifyCategory = `
+mutation ModifyCategory($modifyCategoryId: ID!, $category: CategoryModifyInput!) {
+  modifyCategory(id: $modifyCategoryId, category: $category) {
+    category {
+      category_name
+      id
+    }
+  }
+}
+`;
 
 
 export {
@@ -384,4 +405,6 @@ export {
   modifyAnimal,
   getAdoptionApplicationByAnimal,
   addCategory,
+  deleteCategory,
+  modifyCategory
 };

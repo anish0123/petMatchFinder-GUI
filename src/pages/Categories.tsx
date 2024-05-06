@@ -2,11 +2,17 @@ import {useEffect, useState} from 'react';
 import {Category} from '../types/Category';
 import {doGraphQLFetch} from '../graphql/fetch';
 import {APIUrl} from '../constants';
-import {addCategory, getAllCategories} from '../graphql/queries';
+import {
+  addCategory,
+  deleteCategory,
+  getAllCategories,
+  modifyCategory,
+} from '../graphql/queries';
 import NavBar from '../components/NavBar';
 import {useForm} from 'react-hook-form';
 import {Socket, io} from 'socket.io-client';
 import {ClientToServerEvents, ServerToClientEvents} from '../types/Socket';
+import CategoryContainer from '../components/CategoryContainer';
 
 const Categories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -18,6 +24,16 @@ const Categories = () => {
   );
 
   socket.on('addCategory', (message) => {
+    console.log('message: ', message);
+    setFetchCategories(!fetchCategories);
+  });
+
+  socket.on('deleteCategory', (message) => {
+    console.log('message: ', message);
+    setFetchCategories(!fetchCategories);
+  });
+
+  socket.on('modifyCategory', (message) => {
     console.log('message: ', message);
     setFetchCategories(!fetchCategories);
   });
@@ -50,6 +66,46 @@ const Categories = () => {
     }
   };
 
+  const onDeleteCategory = async (category: Category) => {
+    try {
+      const text = `Are you sure you want to delete cateory: ${category.category_name}?`;
+      if (confirm(text)) {
+        const response = await doGraphQLFetch(
+          APIUrl,
+          deleteCategory,
+          {
+            deleteCategoryId: category.id,
+          },
+          token!,
+        );
+        if (response.deleteCategory) {
+          alert('Category deleted successfully!');
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onEditCategory = async (categoryId: string, category: Omit<Category, "id">) => {
+    try {
+      const response = await doGraphQLFetch(
+        APIUrl,
+        modifyCategory,
+        {
+          modifyCategoryId: categoryId,
+          category: category,
+        },
+        token!,
+      );
+      if(response.modifyCategory) {
+        alert('Category modified successfully!');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     (async () => {
       const categories = await doGraphQLFetch(APIUrl, getAllCategories, {});
@@ -70,19 +126,12 @@ const Categories = () => {
         <div className="pt-4 pl-8">
           {categories.length !== 0 &&
             categories.map((category, i) => (
-              <div key={i} className="grid grid-cols-8 border-b capitalize">
-                <h2 className="font-semibold py-2">{category.category_name}</h2>
-                <div>
-                  <button className="content-center mt-2 h-3/5 inline-flex items-center px-2 bg-gray-600 transition ease-in-out delay-75 hover:bg-gray-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110">
-                    Edit Category
-                  </button>
-                </div>
-                <div>
-                  <button className="content-center mt-2 h-3/5 inline-flex items-center px-2 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110">
-                    Delete Category
-                  </button>
-                </div>
-              </div>
+              <CategoryContainer
+                key={i}
+                category={category}
+                onDeleteCategory={onDeleteCategory}
+                onEditCategory={onEditCategory}
+              />
             ))}
         </div>
         <div className="pt-8 pl-8 grid">
