@@ -43,6 +43,7 @@ query CheckToken {
       postalCode
       streetAddress
       user_name
+      role
     }
   }
 }
@@ -385,11 +386,6 @@ mutation ModifyCategory($modifyCategoryId: ID!, $category: CategoryModifyInput!)
 }
 `;
 
-const checkRole = `
-query checkRole {
-  checkRole
-}
-`;
 
 const getRatingsByRatedToUser = `
 query RatedTo($ratedTo: ID!) {
@@ -418,6 +414,39 @@ query RatedTo($ratedTo: ID!) {
 }
 `;
 
+const addRating = `
+mutation addRating($rating: RatingInput!) {
+  addRating(rating: $rating) {
+    message
+    rating {
+      description
+      id
+      ratedBy {
+        id
+        email
+      }
+      ratedDate
+      ratedTo {
+        id
+        email
+      }
+      rating
+    }
+  }
+}
+`;
+
+const modifyRating =`
+mutation ModifyRating($modifyRatingId: ID!, $rating: RatingModify!) {
+  modifyRating(id: $modifyRatingId, rating: $rating) {
+    message
+    rating {
+      description
+    }
+  }
+}
+`;
+
 export {
   login,
   registerUser,
@@ -439,6 +468,7 @@ export {
   addCategory,
   deleteCategory,
   modifyCategory,
-  checkRole,
-  getRatingsByRatedToUser
+  getRatingsByRatedToUser,
+  addRating,
+  modifyRating
 };

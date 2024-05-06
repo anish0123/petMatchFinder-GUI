@@ -4,7 +4,7 @@ import logo from '../assets/petMatchFinderLogo.png';
 import {useEffect, useState} from 'react';
 import {doGraphQLFetch} from '../graphql/fetch';
 import {APIUrl} from '../constants';
-import {checkRole} from '../graphql/queries';
+import { checkToken} from '../graphql/queries';
 
 type NavBarProps = {
   disableBackButton?: boolean;
@@ -32,10 +32,9 @@ const NavBar = ({disableBackButton}: NavBarProps) => {
 
   useEffect(() => {
     (async () => {
-      const response = await doGraphQLFetch(APIUrl, checkRole, {}, token!);
-      console.log("response: ", response);
-      if (response.checkRole) {
-        setUserRole(response.checkRole);
+      const response = await doGraphQLFetch(APIUrl, checkToken, {}, token!);
+      if (response.checkToken.user.role) {
+        setUserRole(response.checkToken.user.role);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps

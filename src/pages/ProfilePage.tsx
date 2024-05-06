@@ -33,7 +33,10 @@ const ProfilePage = () => {
   useEffect(() => {
     (async () => {
       const response = await doGraphQLFetch(APIUrl, checkToken, {}, token!);
-      setUser(response.checkToken.user);
+      if(response.checkToken) {
+        setUser(response.checkToken.user);
+      }
+      
       const applicationsResponse = await doGraphQLFetch(
         APIUrl,
         getAdoptionApplicationsByUser,
