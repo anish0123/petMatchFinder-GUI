@@ -350,6 +350,19 @@ query Query($animalId: ID!) {
   }
 }`;
 
+const addCategory = `
+mutation AddCategory($category: CategoryInput!) {
+  addCategory(category: $category) {
+    category {
+      category_name
+      id
+    }
+    message
+  }
+}
+`;
+
+
 
 
 export {
@@ -369,5 +382,6 @@ export {
   getAllCategories,
   addAnimal,
   modifyAnimal,
-  getAdoptionApplicationByAnimal
+  getAdoptionApplicationByAnimal,
+  addCategory,
 };

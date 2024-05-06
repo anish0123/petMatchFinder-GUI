@@ -16,6 +16,7 @@ import AnimalAdoptionDetailPage from './pages/AnimalAdoptionDetailPage';
 import ListerProfilePage from './pages/ListerProfilePage';
 import AddAnimalPage from './pages/AddAnimalPage';
 import EditAnimalPage from './pages/EditAnimalPage';
+import Categories from './pages/Categories';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -36,7 +37,7 @@ export default function App() {
       element: <LoginPage />,
     },
     {
-      path: 'register',
+      path: '/register',
       element: <RegisterationPage />,
     },
     {
@@ -72,8 +73,12 @@ export default function App() {
       element: <ListerProfilePage />
     },
     {
-      path: "animals/:animalId/edit",
+      path: "/animals/:animalId/edit",
       element: <EditAnimalPage />
+    },
+    {
+      path: "/categories",
+      element: <Categories />
     }
   ];
 
