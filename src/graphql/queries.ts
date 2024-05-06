@@ -385,6 +385,11 @@ mutation ModifyCategory($modifyCategoryId: ID!, $category: CategoryModifyInput!)
 }
 `;
 
+const checkRole = `
+query checkRole {
+  checkRole
+}
+`;
 
 export {
   login,
@@ -406,5 +411,6 @@ export {
   getAdoptionApplicationByAnimal,
   addCategory,
   deleteCategory,
-  modifyCategory
+  modifyCategory,
+  checkRole
 };
