@@ -69,7 +69,7 @@ const ProfilePage = () => {
     <div className="w-screen h-screen">
       <NavBar />
       <div className="">
-        <div className="grid grid-cols-4 border-b shadow-lg px-10 py-16">
+        <div className="grid grid-cols-3 border-b shadow-lg px-10 py-16">
           <div>
             <h1 className="text-2xl font-semibold">{user?.user_name}</h1>
             <h1 className="text-base font-semibold">{user?.email}</h1>
@@ -85,6 +85,14 @@ const ProfilePage = () => {
               }}
             >
               Update Profile
+            </button>
+            <button
+              className="ml-4 mt-4 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-8 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
+              onClick={() => {
+                window.open(`/profile/${user?.id}/rating`, '_self');
+              }}
+            >
+              Check Rating
             </button>
           </div>
         </div>
