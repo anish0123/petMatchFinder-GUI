@@ -31,8 +31,12 @@ const NavBar = ({disableBackButton}: NavBarProps) => {
   };
 
   const onLogoClick = () => {
-    window.open('/animals', '_self');
+    window.open('/', '_self');
   };
+
+  const onCategoryClick = () => {
+    window.open('/categories', '_self');
+  }
 
   useEffect(() => {
     (async () => {
@@ -66,7 +70,7 @@ const NavBar = ({disableBackButton}: NavBarProps) => {
           {userRole === 'admin' && (
             <button
               className=" pl-4 content-center mt-2 h-3/5 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 pl-2 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
-              onClick={addAnimal}
+              onClick={onCategoryClick}
             >
               Categories
             </button>

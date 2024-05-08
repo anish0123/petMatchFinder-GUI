@@ -18,6 +18,7 @@ import AddAnimalPage from './pages/AddAnimalPage';
 import EditAnimalPage from './pages/EditAnimalPage';
 import Categories from './pages/Categories';
 import RatingPage from './pages/RatingPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -58,6 +59,10 @@ export default function App() {
           <Routes>
             <Route path="/" element={<LoginPage />} />,
             <Route path="/register" element={<RegisterationPage />} />,
+            <Route
+                    path="*"
+                    element={<NotFoundPage />}
+                />
           </Routes>
         </BrowserRouter>
       </>
@@ -67,9 +72,9 @@ export default function App() {
       <>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<LoginPage />} />,
+            <Route path="/" element={<ListingPage />} />,
             <Route path="/register" element={<RegisterationPage />} />,
-            <Route path="/animals" element={<ListingPage />} />,
+            <Route path="/login" element={<LoginPage />} />,
             <Route path="/animals/add" element={<AddAnimalPage />} />,
             <Route path="/animals/:animalId" element={<AnimalDetailPage />} />,
             <Route
@@ -93,6 +98,10 @@ export default function App() {
             {role === 'admin' && (
               <Route path="/categories" element={<Categories />} />
             )}
+            <Route
+                    path="*"
+                    element={<NotFoundPage />}
+                />
           </Routes>
         </BrowserRouter>
       </>
