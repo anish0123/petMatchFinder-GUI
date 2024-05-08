@@ -126,7 +126,7 @@ const Categories = () => {
           Categories
         </h1>
         <div className="pt-4 pl-8">
-          {categories.length !== 0 &&
+          {categories.length &&
             categories.map((category, i) => (
               <CategoryContainer
                 key={i}

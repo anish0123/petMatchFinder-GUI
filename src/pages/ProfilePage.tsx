@@ -105,7 +105,7 @@ const ProfilePage = () => {
           </Tabs>
           {value === 'listedAnimals' && (
             <div className="grid grid-cols-3 gap-8 pt-4">
-              {animals.length !== 0 ? (
+              {animals.length ? (
                 animals.map((animal, i) => {
                   return <AnimalContainer animal={animal} key={i} />;
                 })):(
@@ -116,7 +116,7 @@ const ProfilePage = () => {
           {
             value === 'adoptionApplications' && (
               <div className="grid grid-cols-3 gap-8 pt-4">
-            {applications.length !== 0 ? (
+            {applications.length ? (
               applications.map((application, i) => {
                 return (
                   <AdoptionApplicationContainer

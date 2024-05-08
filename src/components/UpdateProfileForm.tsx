@@ -5,7 +5,11 @@ import {doGraphQLFetch} from '../graphql/fetch';
 import {APIUrl} from '../constants';
 import {updateUser} from '../graphql/queries';
 
-const UpdateProfileForm = () => {
+type UpdateProfileFormProps = {
+  user: User | undefined
+}
+
+const UpdateProfileForm = ({user}: UpdateProfileFormProps) => {
   const {
     register,
     handleSubmit,
@@ -57,6 +61,7 @@ const UpdateProfileForm = () => {
           })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
           placeholder="Username"
+          defaultValue={user?.user_name}
         />
         <input
           type="text"
@@ -65,6 +70,7 @@ const UpdateProfileForm = () => {
           })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
           placeholder="Email"
+          defaultValue={user?.email}
         />
         <input
           {...register('password', {

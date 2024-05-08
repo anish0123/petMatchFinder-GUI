@@ -114,7 +114,7 @@ const AnimalDetailPage = () => {
                 Adoption Applications for {animal?.animal_name}
               </h1>
               <div className="grid grid-cols-3 gap-8 pt-4">
-                {adoptionApplications.length !== 0 ? (
+                {adoptionApplications.length ? (
                   adoptionApplications.map((application, i) => {
                     return (
                       <AdoptionApplicationContainer

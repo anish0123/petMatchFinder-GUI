@@ -88,6 +88,7 @@ const AnimalForm = ({onSubmit, categories, editForm, animal}: AdoptionFormProps)
             <></>
           )}
         </MapContainer>
+        <h1 className='py-2 justify-self-center'>Location can be selected by clicking on desired location</h1>
         <input
           type="text"
           {...register('animal_name', {

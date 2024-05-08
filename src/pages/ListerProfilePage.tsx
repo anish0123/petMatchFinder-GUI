@@ -65,7 +65,7 @@ const ListerProfilePage = () => {
         <div className="w-full h-full grid place-items-center">
           <h1 className="text-2xl font-semibold py-8">Listed Animals</h1>
           <div className="grid grid-cols-3 gap-8">
-            {animals.length !== 0 &&
+            {animals.length &&
               animals.map((animal, i) => {
                 return <AnimalContainer animal={animal} key={i} />;
               })}

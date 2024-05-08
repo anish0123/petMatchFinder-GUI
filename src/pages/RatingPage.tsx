@@ -113,7 +113,7 @@ const RatingPage = () => {
               Ratings
             </h1>
             <div className="pt-4 pl-12">
-              {ratings?.length !== 0 &&
+              {ratings?.length &&
                 ratings?.map((rating, i) => (
                   <div key={i}>
                     <RatingContainer rating={rating} user={user} />
