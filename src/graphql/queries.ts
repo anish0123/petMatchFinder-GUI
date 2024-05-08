@@ -443,6 +443,20 @@ mutation DeleteRating($deleteRatingId: ID!) {
 }
 `;
 
+const deleteAnimal = `
+mutation DeleteAnimal($deleteAnimalId: ID!) {
+  deleteAnimal(id: $deleteAnimalId) {
+    animal {
+      adoptionStatus
+      animal_name
+      birthdate
+      id
+    }
+    message
+  }
+}
+`;
+
 export {
   login,
   registerUser,
@@ -467,5 +481,6 @@ export {
   getRatingsByRatedToUser,
   addRating,
   modifyRating,
-  deleteRating
+  deleteRating,
+  deleteAnimal
 };

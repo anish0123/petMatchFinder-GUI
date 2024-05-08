@@ -43,6 +43,8 @@ const AnimalAdoptionPage = () => {
         `/animal-adoption/${response.addAdoptionApplication.adoptionApplication.id}`,
         '_self',
       );
+    } else {
+      alert('Failed to submit adoption application');
     }
   };
 

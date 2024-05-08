@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {RouterProvider, createBrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterationPage from './pages/RegisterationPage';
 import {doGraphQLFetch} from './graphql/fetch';
@@ -30,70 +30,15 @@ root.render(
 
 export default function App() {
   const token = localStorage.getItem('token');
-  const [, setUsername] = useState<string>();
-
-  const routes = [
-    {
-      path: '/',
-      element: <LoginPage />,
-    },
-    {
-      path: '/register',
-      element: <RegisterationPage />,
-    },
-    {
-      path: '/animals',
-      element: <ListingPage />,
-    },
-    {
-      path: '/animals/add',
-      element: <AddAnimalPage />,
-    },
-    {
-      path: '/animals/:animalId',
-      element: <AnimalDetailPage />,
-    },
-    {
-      path: '/animals/:animalId/adopt',
-      element: <AnimalAdoptionPage />
-    },
-    {
-      path: "/profile", 
-      element: <ProfilePage />
-    },
-    {
-      path: "/profile/update", 
-      element: <UpdateProfilePage />
-    },
-    {
-      path: "/animal-adoption/:adoptionId",
-      element: <AnimalAdoptionDetailPage />
-    },
-    {
-      path: "/profile/:userId",
-      element: <ListerProfilePage />
-    },
-    {
-      path: "/profile/:userId/Rating",
-      element: <RatingPage />
-    },
-    {
-      path: "/animals/:animalId/edit",
-      element: <EditAnimalPage />
-    },
-    {
-      path: "/categories",
-      element: <Categories />
-    }
-  ];
-
-  const router = createBrowserRouter(routes);
+  const [username, setUsername] = useState<string>();
+  const [role, setRole] = useState<string>();
 
   const checkTokenFromApi = async (token: string) => {
     const isTokenValid = await doGraphQLFetch(APIUrl, checkToken, {}, token);
     if (isTokenValid.checkToken?.message === 'Token is valid') {
       setUsername(isTokenValid.checkToken.user.user_name);
-    } 
+      setRole(isTokenValid.checkToken.user.role);
+    }
   };
 
   useEffect(() => {
@@ -106,9 +51,51 @@ export default function App() {
     }
   }, [token]);
 
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  if (!username) {
+    return (
+      <>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />,
+            <Route path="/register" element={<RegisterationPage />} />,
+          </Routes>
+        </BrowserRouter>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />,
+            <Route path="/register" element={<RegisterationPage />} />,
+            <Route path="/animals" element={<ListingPage />} />,
+            <Route path="/animals/add" element={<AddAnimalPage />} />,
+            <Route path="/animals/:animalId" element={<AnimalDetailPage />} />,
+            <Route
+              path="/animals/:animalId/adopt"
+              element={<AnimalAdoptionPage />}
+            />
+            ,
+            <Route path="/profile" element={<ProfilePage />} />,
+            <Route path="/profile/update" element={<UpdateProfilePage />} />,
+            <Route
+              path="/animal-adoption/:adoptionId"
+              element={<AnimalAdoptionDetailPage />}
+            />
+            ,
+            <Route path="/profile/:userId" element={<ListerProfilePage />} />,
+            <Route path="/profile/:userId/Rating" element={<RatingPage />} />,
+            <Route
+              path="/animals/:animalId/edit"
+              element={<EditAnimalPage />}
+            />
+            {role === 'admin' && (
+              <Route path="/categories" element={<Categories />} />
+            )}
+          </Routes>
+        </BrowserRouter>
+      </>
+    );
+  }
 }

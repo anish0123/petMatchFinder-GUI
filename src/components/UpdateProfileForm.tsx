@@ -34,6 +34,8 @@ const UpdateProfileForm = () => {
           localStorage.setItem('token', registerationData.updateUser.token);
         }
         window.open('/profile', '_self');
+      } else {
+        alert('Failed to update user');
       }
     } catch (error) {
       console.error(error);

@@ -7,9 +7,10 @@ type AnimalInfoProps = {
   animal: Animal;
   animalId: string;
   user: User;
+  onDelete: (animalId: string) => void;
 };
 
-const AnimalInfo = ({animal, animalId, user}: AnimalInfoProps) => {
+const AnimalInfo = ({animal, animalId, user, onDelete}: AnimalInfoProps) => {
   const onAdopt = () => {
     window.open(`/animals/${animalId}/adopt`, '_self');
   };
@@ -20,7 +21,7 @@ const AnimalInfo = ({animal, animalId, user}: AnimalInfoProps) => {
 
   const onProfileCheck = () => {
     window.open(`/profile/${animal?.owner.id}`, '_self');
-  }
+  };
 
   const processCategory = (
     category: Category | string | undefined,
@@ -61,12 +62,21 @@ const AnimalInfo = ({animal, animalId, user}: AnimalInfoProps) => {
         </p>
         <p className="pb-4">
           <strong>Listed By: </strong>
-          <a onClick={onProfileCheck} className='underline hover:cursor-pointer'>
+          <a
+            onClick={onProfileCheck}
+            className="underline hover:cursor-pointer"
+          >
             {animal?.owner?.user_name}
           </a>
         </p>
-        <p className="pb-4"><strong>Weight: </strong>{animal?.weight} kg</p>
-        <p className="pb-4"><strong>Price: </strong>{animal?.price} €</p>
+        <p className="pb-4">
+          <strong>Weight: </strong>
+          {animal?.weight} kg
+        </p>
+        <p className="pb-4">
+          <strong>Price: </strong>
+          {animal?.price} €
+        </p>
         <div>
           {animal?.owner.id === user?.id ? (
             <button
@@ -86,6 +96,17 @@ const AnimalInfo = ({animal, animalId, user}: AnimalInfoProps) => {
               <span className="relative text-white font-bold px-8 py-8">
                 {' '}
                 Adopt Me{' '}
+              </span>
+            </button>
+          )}
+          {(animal?.owner.id === user?.id || user.role === 'admin') && (
+            <button
+              className=" ml-4 mt-4 relative overflow-hidden rounded-lg h-12 group hover:animate-pulse hover:shadow-lg hover:scale-105 transition duration-500 before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-br before:from-pink-400 before:via-red-400 before:to-orange-400"
+              onClick={() => onDelete(animalId)}
+            >
+              <span className="relative text-white font-bold px-8 py-8">
+                {' '}
+                Delete{' '}
               </span>
             </button>
           )}

@@ -27,6 +27,8 @@ const RegisterationForm = () => {
       }));
      if(registerationData) {
       window.open("/", "_self")
+     } else {
+      alert('Failed to register user');
      }
     } catch (error) {
       console.error(error);

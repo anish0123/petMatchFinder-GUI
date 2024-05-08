@@ -60,6 +60,8 @@ const Categories = () => {
       if (response.addCategory) {
         reset();
         alert('Category added successfully!');
+      } else {
+        alert('Failed to add category');
       }
     } catch (error) {
       console.error(error);

@@ -117,7 +117,7 @@ const AnimalAdoptionDetailPage = () => {
       );
       if (response.adoptionApplicationById) {
         setAdoption(response.adoptionApplicationById);
-      }
+      } 
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, refetch]);

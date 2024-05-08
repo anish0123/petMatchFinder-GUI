@@ -4,6 +4,7 @@ import {doGraphQLFetch} from '../graphql/fetch';
 import {APIUrl} from '../constants';
 import {
   checkToken,
+  deleteAnimal,
   getAdoptionApplicationByAnimal,
   getAnimalById,
 } from '../graphql/queries';
@@ -66,6 +67,32 @@ const AnimalDetailPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animalId, reFetchAnimal]);
 
+  const onDelete = async () => {
+    try {
+      const text =
+        "Are you sure you want to delete this animal? This action can't be undone.";
+      if (confirm(text)) {
+        const response = await doGraphQLFetch(
+          APIUrl,
+          deleteAnimal,
+          {
+            deleteAnimalId: animalId,
+          },
+          token!,
+        );
+
+        if (response.deleteAnimal) {
+          alert('Animal deleted successfully!');
+          window.open('/profile', '_self');
+        } else {
+          alert('Failed to delete animal');
+        }
+      }
+    } catch (error) {
+      console.error('Error deleting animal: ', error);
+    }
+  };
+
   return (
     <div className="w-screen h-screen">
       <NavBar />
@@ -74,7 +101,12 @@ const AnimalDetailPage = () => {
           {animal?.animal_name}
         </h1>
         <div className="grid place-items-center">
-          <AnimalInfo animal={animal!} animalId={animalId!} user={user!} />
+          <AnimalInfo
+            animal={animal!}
+            animalId={animalId!}
+            user={user!}
+            onDelete={onDelete}
+          />
 
           {animal?.owner.id === user?.id && (
             <>

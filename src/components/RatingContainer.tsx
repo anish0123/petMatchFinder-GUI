@@ -35,6 +35,8 @@ const RatingContainer = ({rating, user}: RatingContainerProps) => {
     if (response.modifyRating) {
       alert('Rating updated successfully');
       setEditMode(false);
+    } else {
+      alert('Failed to update rating');
     }
   };
 
@@ -51,6 +53,8 @@ const RatingContainer = ({rating, user}: RatingContainerProps) => {
       );
       if (response.deleteRating) {
         alert('Rating deleted successfully');
+      } else {
+        alert('Failed to delete rating');
       }
     }
   };

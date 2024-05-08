@@ -53,6 +53,8 @@ const EditAnimalPage = () => {
       if (response.modifyAnimal) {
         alert('Animal edited successfully!');
         window.open(`/animals/${response.modifyAnimal.animal.id}`, '_self');
+      } else {
+        alert('Failed to edit animal');
       }
     } catch (error) {
       console.error('error: ', error);
