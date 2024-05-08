@@ -22,18 +22,13 @@ jobs:
           node-version: '20.x'
 
       - name: npm install, build, and test
-        env: 
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-          VITE_UPLOAD_URL: ${{ secrets.VITE_UPLOAD_URL }}
-          VITE_FILE_URL: ${{ secrets.VITE_FILE_URL }}
-          VITE_SOCKET_URL: ${{ secrets.VITE_SOCKET_URL }}
         run: |
           npm install
           npm run build --if-present
-          
+          npm run test --if-present
+
       - name: Zip artifact for deployment
-        run: zip release.zip ./dist -r
+        run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -62,9 +57,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_2EE2FAAE51CD429BB1C7D0D9D6D7B2EC }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_117704C409A241599E866ACF535B20CE }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_81B563DE775C456F9F290489EC545851 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C9FAC9DC2F50484A893B6282CD687E28 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_636D9DE6D4D44868B3F2D8FC8AFAB743 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D3EFC7823A4F48A8A801AC1BFE31024D }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
