@@ -12,6 +12,7 @@ type Animal = {
   image: string;
   location: Point;
   weight: number;
+  price: number;
   listedDate: Date;
   description: string;
   adoptionStatus: 'available' | 'adopted';

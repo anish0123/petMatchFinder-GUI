@@ -28,7 +28,6 @@ const AdoptionApplicationContainer = ({
             <h1 className='font-semibold'> Adopter Details</h1>
             <h1>{application?.adopter?.user_name}</h1>
             <h1>{application?.adopter?.email}</h1>
-            <h1>{application?.adopter?.streetAddress}, {application?.adopter?.postalCode}, {application.adopter.city}</h1>
           </>
         ) : (
           <>

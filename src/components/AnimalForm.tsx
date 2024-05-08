@@ -5,58 +5,58 @@ import {Category} from '../types/Category';
 import MapClickHandler from './MapClickHandler';
 import {useState} from 'react';
 import {LatLngLiteral} from 'leaflet';
-import { UploadResponse } from '../types/UploadResponse';
-import { UploadUrl } from '../constants';
-import { Point } from 'geojson';
+import {UploadResponse} from '../types/UploadResponse';
+import {UploadUrl} from '../constants';
+import {Point} from 'geojson';
 
 type AdoptionFormProps = {
   onSubmit: (data: Animal) => void;
-  editForm: boolean
+  editForm: boolean;
   categories: Category[];
+  animal?: Animal;
 };
-
-const AnimalForm = ({onSubmit, categories, editForm}: AdoptionFormProps) => {
+const AnimalForm = ({onSubmit, categories, editForm, animal}: AdoptionFormProps) => {
   const [clickedPosition, setClickedPosition] = useState<LatLngLiteral>();
   const {
     register,
     handleSubmit,
     formState: {errors},
   } = useForm<Animal>();
-
   const token = localStorage.getItem('token');
 
   const onSubmitForm: SubmitHandler<Animal> = async (data) => {
     try {
       const imageFile = data.image[0];
-      if(imageFile) {
+      if (imageFile) {
         const formData = new FormData();
-      formData.append('cat', imageFile);
-      const imageUpload = await fetch(`${UploadUrl}/upload`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-      const imageUploadData = (await imageUpload.json()) as UploadResponse;
+        formData.append('cat', imageFile);
+        const imageUpload = await fetch(`${UploadUrl}/upload`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+        const imageUploadData = (await imageUpload.json()) as UploadResponse;
 
-      if (clickedPosition) {
-        const location: Point = {
-          type: 'Point',
-          coordinates: [clickedPosition?.lat, clickedPosition?.lng],
-        };
-        data.location = location;
-      }
-      data.image = imageUploadData.data.filename;
+        if (clickedPosition) {
+          const location: Point = {
+            type: 'Point',
+            coordinates: [clickedPosition?.lat, clickedPosition?.lng],
+          };
+          data.location = location;
+        }
+        data.image = imageUploadData.data.filename;
       } else {
-        data.image = "";
+        data.image = '';
       }
       data.weight = Number(data.weight);
+      data.price = Number(data.price);
       data.adoptionStatus = 'available';
       if (!data.category) {
         data.category = categories[0].id;
       }
-      
+
       onSubmit(data);
     } catch (error) {
       console.log('error: ', error);
@@ -90,20 +90,23 @@ const AnimalForm = ({onSubmit, categories, editForm}: AdoptionFormProps) => {
         </MapContainer>
         <input
           type="text"
-          {...register('animal_name', {required: editForm ? false: true,
+          {...register('animal_name', {
+            required: editForm ? false : true,
             setValueAs: (value) => value || undefined,
-
           })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
           placeholder="Name"
+          defaultValue={animal?.animal_name}
         />
         {errors.animal_name && <span>Name is required</span>}
         <input
           type="date"
-          {...register('birthdate', {required: editForm ? false: true,
+          {...register('birthdate', {
+            required: editForm ? false : true,
             setValueAs: (value) => value || undefined,
           })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
+          defaultValue={animal?.birthdate?.toString()}
         />
         {errors.birthdate && <span>Birthdate is required</span>}
 
@@ -113,6 +116,7 @@ const AnimalForm = ({onSubmit, categories, editForm}: AdoptionFormProps) => {
             {...register('gender', {
               setValueAs: (value) => value || undefined,
             })}
+            defaultValue={animal?.gender}
           >
             <option value={'male'}>Male</option>
             <option value={'female'}>Female</option>
@@ -125,6 +129,7 @@ const AnimalForm = ({onSubmit, categories, editForm}: AdoptionFormProps) => {
             {...register('category', {
               setValueAs: (value) => value || undefined,
             })}
+            defaultValue={(animal?.category as Category)?.id.toString()}
           >
             {categories.length > 0 &&
               categories.map((category, i) => {
@@ -138,31 +143,53 @@ const AnimalForm = ({onSubmit, categories, editForm}: AdoptionFormProps) => {
           {errors.category && <span>Category is required</span>}
         </div>
         <input
-          {...register('image', {required: editForm ? false: true,
+          {...register('image', {
+            required: editForm ? false : true,
             setValueAs: (value) => value || undefined,
           })}
           className="mx-8 my-2 px-4 h-10 border rounded-lg"
           type="file"
         />
         {errors.image && <span>Image is required</span>}
+        <div className='grid grid-flow-col'>
+          <input
+            {...register('weight', {
+              required: editForm ? false : true,
+              min: 0,
+              setValueAs: (value) => value || undefined,
+            })}
+            type="number"
+            className="mx-8 my-2 px-4 h-10 border rounded-lg"
+            placeholder="Weight"
+            defaultValue={animal?.weight}
+          />
+          {errors.weight && (
+            <span>Weight is required & should be greater than 0</span>
+          )}
+           <input
+            {...register('price', {
+              required: editForm ? false : true,
+              min: 0,
+              setValueAs: (value) => value || undefined,
+            })}
+            type="number"
+            className="mx-8 my-2 px-4 h-10 border rounded-lg"
+            placeholder="Price"
+            defaultValue={animal?.price}
+          />
+          {errors.price && (
+            <span>Price is required & should be greater than 0</span>
+          )}
+        </div>
 
-        <input
-          {...register('weight', {required: editForm ? false: true, min: 0,
-            setValueAs: (value) => value || undefined,
-          })}
-          type="number"
-          className="mx-8 my-2 px-4 h-10 border rounded-lg"
-          placeholder="Weight"
-        />
-        {errors.weight && (
-          <span>Weight is required & should be greater than 0</span>
-        )}
         <textarea
-          {...register('description', {required: editForm ? false: true,
+          {...register('description', {
+            required: editForm ? false : true,
             setValueAs: (value) => value || undefined,
           })}
           placeholder="description"
           className="mx-8 my-2 px-4 h-40 border rounded-lg"
+          defaultValue={animal?.description}
         />
 
         <div className="grid place-items-center">
@@ -170,7 +197,7 @@ const AnimalForm = ({onSubmit, categories, editForm}: AdoptionFormProps) => {
             className="mt-4 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-8 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
             type="submit"
           >
-            Register
+            Save
           </button>
         </div>
       </form>

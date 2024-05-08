@@ -34,12 +34,13 @@ const EditAnimalPage = () => {
     try {
       if (!data.weight && animal?.weight) {
         data.weight = animal?.weight;
-        console.log('working');
+      }
+      if (!data.price && animal?.price) {
+        data.price = animal?.price;
       }
       if (data.image === '' && animal?.image) {
         data.image = animal?.image;
       }
-      console.log('data: ', data);
       const response = await doGraphQLFetch(
         APIUrl,
         modifyAnimal,
@@ -65,7 +66,7 @@ const EditAnimalPage = () => {
         <h1 className="justify-self-center text-2xl font-semibold text-gray-800 pb-4">
           Edit {animal?.animal_name}
         </h1>
-        <AnimalForm onSubmit={onSubmit} categories={categories} editForm />
+        <AnimalForm onSubmit={onSubmit} categories={categories} editForm animal={animal} />
       </div>
     </div>
   );

@@ -49,11 +49,11 @@ const AnimalInfo = ({animal, animalId, user}: AnimalInfoProps) => {
         </p>
         <p className="pb-4">
           <strong>Date of birth: </strong>
-          {animal?.birthdate.toString()}
+          {animal?.birthdate?.toString()}
         </p>
         <p className="pb-4">
           <strong>Listed at: </strong>
-          {animal?.listedDate.toString()}
+          {animal?.listedDate?.toString()}
         </p>
         <p className="pb-4">
           <strong>Adoption Status: </strong>
@@ -62,10 +62,11 @@ const AnimalInfo = ({animal, animalId, user}: AnimalInfoProps) => {
         <p className="pb-4">
           <strong>Listed By: </strong>
           <a onClick={onProfileCheck} className='underline hover:cursor-pointer'>
-            {animal?.owner.user_name}, {animal?.owner.streetAddress},
-            {animal?.owner.postalCode} {animal?.owner.city}
+            {animal?.owner?.user_name}
           </a>
         </p>
+        <p className="pb-4"><strong>Weight: </strong>{animal?.weight} kg</p>
+        <p className="pb-4"><strong>Price: </strong>{animal?.price} €</p>
         <div>
           {animal?.owner.id === user?.id ? (
             <button
