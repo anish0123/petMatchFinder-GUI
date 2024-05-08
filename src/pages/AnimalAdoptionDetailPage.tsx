@@ -41,6 +41,8 @@ const AnimalAdoptionDetailPage = () => {
       if (response.modifyAdoptionApplication) {
         setEditDescription(false);
         setRefetch(!refetch);
+      } else{
+        alert('Failed to update application');
       }
     } catch (error) {
       console.error(error);
@@ -55,7 +57,7 @@ const AnimalAdoptionDetailPage = () => {
       } else {
         text = `Are you sure you want to reject this application?`;
       }
-      
+
       if (confirm(text)) {
         const response = await doGraphQLFetch(
           APIUrl,
@@ -68,7 +70,8 @@ const AnimalAdoptionDetailPage = () => {
         );
         if (response.modifyAdoptionApplication) {
           setRefetch(!refetch);
-        }
+        } else {
+          alert('Failed to update application');}
       }
     } catch (error) {
       console.error(error);
@@ -77,16 +80,22 @@ const AnimalAdoptionDetailPage = () => {
 
   const onDelete = async () => {
     try {
-      const response = await doGraphQLFetch(
-        APIUrl,
-        deleteAdoptionApplication,
-        {
-          deleteAdoptionApplicationId: adoption?.id,
-        },
-        token!,
-      );
-      if (response.deleteAdoptionApplication) {
-        window.open('/profile', '_self');
+      const text = 'Do you want to delete this application?';
+      if (confirm(text)) {
+        const response = await doGraphQLFetch(
+          APIUrl,
+          deleteAdoptionApplication,
+          {
+            deleteAdoptionApplicationId: adoption?.id,
+          },
+          token!,
+        );
+        if (response.deleteAdoptionApplication) {
+          alert('Application deleted successfully!');
+          window.open('/profile', '_self');
+        } else {
+          alert('Failed to delete application');
+        }
       }
     } catch (error) {
       console.error(error);
@@ -150,6 +159,7 @@ const AnimalAdoptionDetailPage = () => {
                 {...register('description', {required: true})}
                 className="my-2 px-4 h-40 border rounded-lg"
                 placeholder="Description"
+                defaultValue={adoption?.description}
               />
               {errors.description && <span>Description is required</span>}
               <div>

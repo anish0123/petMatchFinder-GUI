@@ -80,7 +80,7 @@ const RatingPage = () => {
           ratedTo: userId,
         },
       );
-      if (ratingResponse.ratingByRatedToUser?.length !== 0) {
+      if (ratingResponse.ratingByRatedToUser?.length) {
         setRatings(ratingResponse.ratingByRatedToUser);
         let sum = 0;
         ratingResponse.ratingByRatedToUser?.forEach((rating: Rating) => {
@@ -99,25 +99,34 @@ const RatingPage = () => {
         <h1 className="font-semibold text-2xl justify-self-center">
           Overall Rating
         </h1>
-        <RatingStar
-          className="justify-self-center py-4"
-          name="read-only"
-          value={overallRating || 0}
-          readOnly
-          size="large"
-          precision={0.5}
-        />
-        <h1 className="font-semibold text-2xl pb-4 justify-self-center">
-          Ratings
-        </h1>
-        <div className="pt-4 pl-12">
-          {ratings?.length !== 0 &&
-            ratings?.map((rating, i) => (
-              <div key={i}>
-                <RatingContainer rating={rating} user={user} />
-              </div>
-            ))}
-        </div>
+        {ratings?.length ? (
+          <>
+            <RatingStar
+              className="justify-self-center py-4"
+              name="read-only"
+              value={overallRating || 0}
+              readOnly
+              size="large"
+              precision={0.5}
+            />
+            <h1 className="font-semibold text-2xl pb-4 justify-self-center">
+              Ratings
+            </h1>
+            <div className="pt-4 pl-12">
+              {ratings?.length !== 0 &&
+                ratings?.map((rating, i) => (
+                  <div key={i}>
+                    <RatingContainer rating={rating} user={user} />
+                  </div>
+                ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <h1 className="justify-self-center py-4 font-semibold">No ratings available</h1>
+          </>
+        )}
+
         <h1 className="font-semibold text-2xl pb-4 justify-self-center pt-4">
           Add Rating
         </h1>

@@ -78,7 +78,7 @@ const AnimalDetailPage = () => {
 
           {animal?.owner.id === user?.id && (
             <>
-              <h1 className="py-8 font-semibold text-2xl">
+              <h1 className="pt-8 pb-4 font-semibold text-2xl">
                 Adoption Applications for {animal?.animal_name}
               </h1>
               <div className="grid grid-cols-3 gap-8 pt-4">
@@ -93,7 +93,7 @@ const AnimalDetailPage = () => {
                     );
                   })
                 ) : (
-                  <h1 className="pt-2 font-semibold text-xl uppercase justify-self-center col-start-1 col-span-3">
+                  <h1 className="font-semibold text-base uppercase justify-self-center col-start-1 col-span-3">
                     No adoption applications
                   </h1>
                 )}

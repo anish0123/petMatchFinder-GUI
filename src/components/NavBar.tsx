@@ -4,7 +4,7 @@ import logo from '../assets/petMatchFinderLogo.png';
 import {useEffect, useState} from 'react';
 import {doGraphQLFetch} from '../graphql/fetch';
 import {APIUrl} from '../constants';
-import { checkToken} from '../graphql/queries';
+import {checkToken} from '../graphql/queries';
 
 type NavBarProps = {
   disableBackButton?: boolean;
@@ -28,6 +28,10 @@ const NavBar = ({disableBackButton}: NavBarProps) => {
 
   const onClickBack = () => {
     history.back();
+  };
+
+  const onLogoClick = () => {
+    window.open('/animals', '_self');
   };
 
   useEffect(() => {
@@ -55,8 +59,10 @@ const NavBar = ({disableBackButton}: NavBarProps) => {
           </button>
         )}
 
-        <img src={logo} className="h-14 w-20 justify-self-center col-start-4" />
-        <div className={`justify-self-end  gap-4 grid ${ userRole === "admin" ?" col-start-6 col-span-3 grid-cols-4" : "col-start-7 col-span-2 grid-cols-3"}`}>
+        <img src={logo} className="h-14 w-20 justify-self-center col-start-4 hover:cursor-pointer" onClick={onLogoClick}/>
+        <div
+          className={`justify-self-end  gap-4 grid ${userRole === 'admin' ? ' col-start-6 col-span-3 grid-cols-4' : 'col-start-7 col-span-2 grid-cols-3'}`}
+        >
           {userRole === 'admin' && (
             <button
               className=" pl-4 content-center mt-2 h-3/5 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 pl-2 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"

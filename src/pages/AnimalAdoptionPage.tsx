@@ -17,10 +17,9 @@ const AnimalAdoptionPage = () => {
       const response = await doGraphQLFetch(APIUrl, getAnimalById, {
         animalByIdId: animalId,
       });
-      if(response.animalById) {
+      if (response?.animalById) {
         setAnimal(response.animalById);
       }
-      
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animalId]);
@@ -34,14 +33,16 @@ const AnimalAdoptionPage = () => {
           description: data.description,
           animal: animalId,
           appliedDate: new Date(),
-          applicationStatus: 'pending',
         },
       },
       token!,
     );
-    if(response.addAdoptionApplication) {
+    if (response.addAdoptionApplication) {
       alert('Adoption application submitted successfully!');
-      window.open('/animals', '_self');
+      window.open(
+        `/animal-adoption/${response.addAdoptionApplication.adoptionApplication.id}`,
+        '_self',
+      );
     }
   };
 

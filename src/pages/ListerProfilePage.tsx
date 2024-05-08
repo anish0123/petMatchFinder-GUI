@@ -49,9 +49,6 @@ const ListerProfilePage = () => {
           <div>
             <h1 className="text-2xl font-semibold">{user?.user_name}</h1>
             <h1 className="text-base font-semibold">{user?.email}</h1>
-            <h1 className="text-base font-semibold">
-              {user?.streetAddress}, {user?.postalCode} {user?.city}
-            </h1>
           </div>
           <div>
             <button
