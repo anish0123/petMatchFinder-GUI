@@ -86,31 +86,6 @@ const UpdateProfileForm = () => {
             Password do not match. Please check both password!
           </span>
         )}
-        <input
-          {...register('streetAddress')}
-          className="mx-8 my-2 px-4 h-10 border rounded-lg"
-          type="text"
-          placeholder="Street Address"
-        />
-
-        <div className="grid grid-flow-col">
-          <input
-            {...register('postalCode', {
-              setValueAs: (value) => value || undefined,
-            })}
-            className="mx-8 my-2 px-4 h-10 border rounded-lg"
-            type="text"
-            placeholder="Postal Code"
-          />
-          <input
-            {...register('city', {
-              setValueAs: (value) => value || undefined,
-            })}
-            className="mx-8 my-2 px-4 h-10 border rounded-lg"
-            type="text"
-            placeholder="City"
-          />
-        </div>
 
         <div className="grid place-items-center">
           <button

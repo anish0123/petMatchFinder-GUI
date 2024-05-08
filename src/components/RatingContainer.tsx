@@ -64,9 +64,6 @@ const RatingContainer = ({rating, user}: RatingContainerProps) => {
             onChange={(_event, newValue) => {
               setNewRating(newValue);
             }}
-            // onChange={(_event, newValue) => {
-            //   setNewRating(newValue);
-            // }}
             className="col-start-1"
             size="medium"
             precision={0.5}
@@ -74,7 +71,6 @@ const RatingContainer = ({rating, user}: RatingContainerProps) => {
           />
           <textarea
             className="ml-2 px-4 h-15 border rounded-lg col-start-3 col-span-8"
-            // onChange={(e) => setDescription(e.target.value)}
             placeholder="Description"
             defaultValue={rating.description}
             onChange={(e) => setDescription(e.target.value)}

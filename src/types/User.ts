@@ -4,9 +4,6 @@ type User =  {
     email: string;
     password: string;
     role: 'user' | 'admin';
-    streetAddress: string;
-    postalCode: string;
-    city: string;
   };
 
   export type { User };

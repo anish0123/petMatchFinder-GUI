@@ -21,7 +21,6 @@ const RegisterationForm = () => {
     data,
   ) => {
     try {
-      data.role = "user";
       delete data.confirmPassword;
       const registerationData = (await doGraphQLFetch(APIUrl, registerUser, {
         user: data,
@@ -73,29 +72,6 @@ const RegisterationForm = () => {
           placeholder="Confirm Password"
         />
         {errors.confirmPassword && <span className='mx-8 text-red-500'>Password do not match. Please check both password!</span>}
-        <input
-          {...register('streetAddress', {required: true})}
-          className="mx-8 my-2 px-4 h-10 border rounded-lg"
-          type="text"
-          placeholder="Street Address"
-        />
-        {errors.streetAddress && <span>Street address is required</span>}
-        <div className='grid grid-flow-col'>
-        <input
-          {...register('postalCode', {required: true})}
-          className="mx-8 my-2 px-4 h-10 border rounded-lg"
-          type="text"
-          placeholder="Postal Code"
-        />
-        {errors.postalCode && <span>Postal code is required</span>}
-        <input
-          {...register('city', {required: true})}
-          className="mx-8 my-2 px-4 h-10 border rounded-lg"
-          type="text"
-          placeholder="City"
-        />
-        {errors.city && <span>City is required</span>}
-        </div>
         
         <div className="grid place-items-center">
           <button

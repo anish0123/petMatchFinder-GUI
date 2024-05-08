@@ -5,11 +5,8 @@ mutation Login($credentials: Credentials!) {
       token
       user {
         id
-        postalCode
         user_name
-        streetAddress
         email
-        city
       }
     }
   }
@@ -22,9 +19,6 @@ mutation registerUser($user: UserInput!) {
     user {
       id
       email
-      city
-      postalCode
-      streetAddress
       user_name
     }
   }
@@ -38,10 +32,7 @@ query CheckToken {
     message
     user {
       email
-      city
       id
-      postalCode
-      streetAddress
       user_name
       role
     }
@@ -58,6 +49,7 @@ query Animals {
     description
     category {
       category_name
+      id
     }
     gender
     id
@@ -68,14 +60,12 @@ query Animals {
       type
     }
     owner {
-      city
       email
       id
-      postalCode
-      streetAddress
       user_name
     }
     weight
+    price
   }
 }`;
 
@@ -87,6 +77,7 @@ query AnimalById($animalByIdId: ID!) {
     birthdate
     category {
       category_name
+      id
     }
     description
     gender
@@ -98,14 +89,12 @@ query AnimalById($animalByIdId: ID!) {
       type
     }
     owner {
-      city
       email
       id
-      postalCode
-      streetAddress
       user_name
     }
     weight
+    price
   }
 }
 `;
@@ -113,15 +102,18 @@ query AnimalById($animalByIdId: ID!) {
 const addAdoptionApplication = `
 mutation addAdoptionApplication($input: AdoptionApplicationInput!) {
   addAdoptionApplication(input: $input) {
-    adopter {
+    adoptionApplication {
+      adopter {
+        id
+      }
+      animal {
+        id
+      }
+      appliedDate
+      description
       id
     }
-    animal {
-      id
-    }
-    appliedDate
-    description
-    id
+    message
   }
 }
 `;
@@ -129,11 +121,8 @@ mutation addAdoptionApplication($input: AdoptionApplicationInput!) {
 const getUserById = `
 query UserById($userByIdId: ID!) {
   userById(id: $userByIdId) {
-    city
     email
     id
-    postalCode
-    streetAddress
     user_name
   }
 }
@@ -165,9 +154,6 @@ mutation UpdateUser($user: UserModify!) {
     user {
       email
       id
-      city
-      postalCode
-      streetAddress
       user_name
     }
     token
@@ -188,6 +174,7 @@ query AdoptionApplicationById($adoptionApplicationByIdId: ID!) {
       image
       category {
         category_name
+        id
       }
       owner {
         id
@@ -205,12 +192,15 @@ query AdoptionApplicationById($adoptionApplicationByIdId: ID!) {
 const modifyAdoptionApplication = `
 mutation modifyApplication($modifyAdoptionApplicationId: ID!, $input: AdoptionApplicationModify!) {
   modifyAdoptionApplication(id: $modifyAdoptionApplicationId, input: $input) {
-    description
+    adoptionApplication {
+      description
     appliedDate
     applicationStatus
     animal {
       id
     }
+    }
+    message
   }
 }
 `;
@@ -218,7 +208,8 @@ mutation modifyApplication($modifyAdoptionApplicationId: ID!, $input: AdoptionAp
 const deleteAdoptionApplication = `
 mutation DeleteAdoptionApplication($deleteAdoptionApplicationId: ID!) {
   deleteAdoptionApplication(id: $deleteAdoptionApplicationId) {
-    applicationStatus
+    adoptionApplication {
+      applicationStatus
     appliedDate
     description
     id
@@ -228,6 +219,8 @@ mutation DeleteAdoptionApplication($deleteAdoptionApplicationId: ID!) {
     adopter {
       id
     }
+    }
+    message
   }
 }
 `;
@@ -240,6 +233,7 @@ query getAnimalsByOwner($ownerId: ID!) {
     birthdate
     category {
       category_name
+      id
     }
     description
     gender
@@ -251,13 +245,11 @@ query getAnimalsByOwner($ownerId: ID!) {
     }
     owner {
       id
-      city
       email
-      postalCode
-      streetAddress
       user_name
     }
     weight
+    price
   }
 }
 `;
@@ -279,6 +271,7 @@ mutation addAnimal($animal: AnimalInput!) {
       animal_name
       birthdate
       weight
+      price
       category {
         category_name
         id
@@ -325,6 +318,7 @@ mutation modifyAnimal($modifyAnimalId: ID!, $animal: AnimalModify!) {
       id
     }
     weight
+    price
     }
   }
 }
@@ -336,9 +330,6 @@ query Query($animalId: ID!) {
     adopter {
       id
       email
-      city
-      postalCode
-      streetAddress
       user_name
     }
     animal {
@@ -395,18 +386,12 @@ query RatedTo($ratedTo: ID!) {
     ratedBy {
       id
       email
-      city
-      postalCode
-      streetAddress
       user_name
     }
     ratedDate
     ratedTo {
       id
       email
-      city
-      postalCode
-      streetAddress
       user_name
     }
     rating
