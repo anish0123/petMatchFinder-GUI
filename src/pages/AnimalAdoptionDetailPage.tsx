@@ -131,7 +131,7 @@ const AnimalAdoptionDetailPage = () => {
       <NavBar backFuntion={onClickBack} />
       <div className="px-10 py-16">
         <img
-          src={FileUrl + adoption?.animal.image}
+          src={`${FileUrl}/${adoption?.animal.image}`}
           alt={adoption?.animal.animal_name}
           className="w-2/5 h-2/5"
         />

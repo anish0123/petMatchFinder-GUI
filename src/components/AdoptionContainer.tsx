@@ -33,7 +33,7 @@ const AdoptionApplicationContainer = ({
           <>
             <h1 className="font-semibold">{application?.animal?.animal_name}</h1>
             <img
-              src={FileUrl + application?.animal.image}
+              src={`${FileUrl}/${application?.animal.image}`}
               alt={application?.animal?.animal_name}
             />
             <h1>{application?.description}</h1>
