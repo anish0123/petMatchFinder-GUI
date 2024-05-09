@@ -41,9 +41,14 @@ const ListerProfilePage = () => {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  const onClickBack = () => {
+    window.open('/', '_self');
+  }
+  
   return (
     <div className="w-screen h-screen">
-      <NavBar />
+      <NavBar backFuntion={onClickBack} />
       <div className="">
         <div className="grid grid-cols-4 border-b shadow-lg px-10 py-16">
           <div>
@@ -65,7 +70,7 @@ const ListerProfilePage = () => {
         <div className="w-full h-full grid place-items-center">
           <h1 className="text-2xl font-semibold py-8">Listed Animals</h1>
           <div className="grid grid-cols-3 gap-8">
-            {animals.length &&
+            {animals.length !== 0 &&
               animals.map((animal, i) => {
                 return <AnimalContainer animal={animal} key={i} />;
               })}

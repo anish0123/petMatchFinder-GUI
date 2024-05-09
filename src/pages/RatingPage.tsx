@@ -66,6 +66,10 @@ const RatingPage = () => {
     }
   };
 
+  const onClickBack = () => {
+    window.open(`/profile/${userId}`, '_self');
+  }
+ 
   useEffect(() => {
     (async () => {
       const userResponse = await doGraphQLFetch(APIUrl, checkToken, {}, token!);
@@ -94,7 +98,7 @@ const RatingPage = () => {
 
   return (
     <div className="w-screen h-screen">
-      <NavBar />
+      <NavBar backFuntion={onClickBack} />
       <div className="grid pt-8">
         <h1 className="font-semibold text-2xl justify-self-center">
           Overall Rating

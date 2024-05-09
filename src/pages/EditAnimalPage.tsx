@@ -61,9 +61,13 @@ const EditAnimalPage = () => {
     }
   };
 
+  const onClickBack = () => {
+    window.open(`/animals/${animalId}`, '_self');
+  }
+
   return (
     <div className="w-screen h-screen">
-      <NavBar />
+      <NavBar backFuntion={onClickBack} />
       <div className="px-10 py-16 grid">
         <h1 className="justify-self-center text-2xl font-semibold text-gray-800 pb-4">
           Edit {animal?.animal_name}

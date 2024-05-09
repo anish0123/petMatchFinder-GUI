@@ -8,9 +8,10 @@ import {checkToken} from '../graphql/queries';
 
 type NavBarProps = {
   disableBackButton?: boolean;
+  backFuntion?: () => void;
 };
 
-const NavBar = ({disableBackButton}: NavBarProps) => {
+const NavBar = ({disableBackButton, backFuntion}: NavBarProps) => {
   const [userRole, setUserRole] = useState<string>();
   const token = localStorage.getItem('token');
   const onLogout = () => {
@@ -27,7 +28,11 @@ const NavBar = ({disableBackButton}: NavBarProps) => {
   };
 
   const onClickBack = () => {
-    history.back();
+    if(backFuntion) {
+      backFuntion();
+    } else {
+      history.back();
+    }
   };
 
   const onLogoClick = () => {

@@ -93,9 +93,13 @@ const AnimalDetailPage = () => {
     }
   };
 
+  const onClickBack = () => {
+    window.open('/', '_self');
+  }
+
   return (
     <div className="w-screen h-screen">
-      <NavBar />
+      <NavBar backFuntion={onClickBack} />
       <div className="mx-12 my-8 p-4 border shadow-lg rounded-lg grid grid-flow-row">
         <h1 className="text-2xl font-semibold justify-self-center">
           {animal?.animal_name}

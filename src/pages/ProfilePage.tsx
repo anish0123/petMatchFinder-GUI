@@ -64,9 +64,14 @@ const ProfilePage = () => {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  const onClickBack = () => {
+    window.open('/', '_self');
+  }
+
   return (
     <div className="w-screen h-screen">
-      <NavBar />
+      <NavBar backFuntion={onClickBack} />
       <div className="">
         <div className="grid grid-cols-3 border-b shadow-lg px-10 py-16">
           <div>

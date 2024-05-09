@@ -47,10 +47,14 @@ const AnimalAdoptionPage = () => {
       alert('Failed to submit adoption application');
     }
   };
+  
+  const onClickBack = () => {
+    window.open(`/animals/${animalId}`, '_self');
+  }
 
   return (
     <div>
-      <NavBar />
+      <NavBar backFuntion={onClickBack} />
       <div className="grid w-screen h-screen justify-items-center grid-rows-12">
         <h1 className="row-start-2 text-2xl font-semibold">
           Adoption form for {animal?.animal_name}

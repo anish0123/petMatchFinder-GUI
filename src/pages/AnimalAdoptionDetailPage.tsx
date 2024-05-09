@@ -122,9 +122,13 @@ const AnimalAdoptionDetailPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, refetch]);
 
+  const onClickBack = () => {
+    window.open(`/animals/${adoption?.animal.id}`, '_self');
+  }
+
   return (
     <div className="w-screen h-screen">
-      <NavBar />
+      <NavBar backFuntion={onClickBack} />
       <div className="px-10 py-16">
         <img
           src={FileUrl + adoption?.animal.image}

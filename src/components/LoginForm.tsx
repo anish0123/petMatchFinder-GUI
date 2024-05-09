@@ -60,9 +60,6 @@ const LoginForm = () => {
           >
             Login
           </button>
-          <a href="#" className="text-gray-800 underline pt-6">
-            Forgot password?
-          </a>
           <Link to="/register" className=" underline pt-6 text-gray-800">New user? Register</Link>
         </div>
       </form>

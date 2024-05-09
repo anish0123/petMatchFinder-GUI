@@ -19,9 +19,15 @@ const UpdateProfilePage = () => {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  const onClickBack = () => {
+    window.open('/profile', '_self');
+  
+  }
+
   return (
     <div className="w-screen h-screen grid grid-rows-8">
-      <NavBar />
+      <NavBar backFuntion={onClickBack} />
       <UpdateProfileForm user={user} />
     </div>
   );
