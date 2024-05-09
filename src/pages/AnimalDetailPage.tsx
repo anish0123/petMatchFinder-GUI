@@ -83,7 +83,7 @@ const AnimalDetailPage = () => {
 
         if (response.deleteAnimal) {
           alert('Animal deleted successfully!');
-          window.open('/profile', '_self');
+          window.open('/petMatchFinder-GUI/profile', '_self');
         } else {
           alert('Failed to delete animal');
         }
@@ -94,7 +94,7 @@ const AnimalDetailPage = () => {
   };
 
   const onClickBack = () => {
-    window.open('/', '_self');
+    window.open('/petMatchFinder-GUI/', '_self');
   }
 
   return (

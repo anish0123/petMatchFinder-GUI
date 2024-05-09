@@ -67,7 +67,7 @@ const RatingPage = () => {
   };
 
   const onClickBack = () => {
-    window.open(`/profile/${userId}`, '_self');
+    window.open(`/petMatchFinder-GUI/profile/${userId}`, '_self');
   }
  
   useEffect(() => {

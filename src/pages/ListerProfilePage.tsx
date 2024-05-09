@@ -43,7 +43,7 @@ const ListerProfilePage = () => {
   }, [token]);
 
   const onClickBack = () => {
-    window.open('/', '_self');
+    window.open('/petMatchFinder-GUI/', '_self');
   }
   
   return (
@@ -59,7 +59,7 @@ const ListerProfilePage = () => {
             <button
               className=" mt-4 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-8 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
               onClick={() => {
-                window.open(`/profile/${userId}/rating`, '_self');
+                window.open(`/petMatchFinder-GUI/profile/${userId}/rating`, '_self');
               }}
             >
               Check Rating

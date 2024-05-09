@@ -26,7 +26,7 @@ const RegisterationForm = () => {
         user: data,
       }));
      if(registerationData) {
-      window.open("/", "_self")
+      window.open("/petMatchFinder-GUI/", "_self")
      } else {
       alert('Failed to register user');
      }

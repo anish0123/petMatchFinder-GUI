@@ -119,7 +119,7 @@ const Categories = () => {
   }, [fetchCategories]);
 
   const onClickBack = () => {
-    window.open('/', '_self');
+    window.open('/petMatchFinder-GUI/', '_self');
   }
 
   return (

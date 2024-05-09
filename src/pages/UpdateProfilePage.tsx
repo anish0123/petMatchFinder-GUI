@@ -21,7 +21,7 @@ const UpdateProfilePage = () => {
   }, [token]);
 
   const onClickBack = () => {
-    window.open('/profile', '_self');
+    window.open('/petMatchFinder-GUI/profile', '_self');
   
   }
 

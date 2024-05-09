@@ -16,15 +16,15 @@ const NavBar = ({disableBackButton, backFuntion}: NavBarProps) => {
   const token = localStorage.getItem('token');
   const onLogout = () => {
     localStorage.removeItem('token');
-    window.open('/', '_self');
+    window.open('/petMatchFinder-GUI/', '_self');
   };
 
   const viewProfile = () => {
-    window.open('/profile', '_self');
+    window.open('/petMatchFinder-GUI/profile', '_self');
   };
 
   const addAnimal = () => {
-    window.open('/animals/add', '_self');
+    window.open('/petMatchFinder-GUI/animals/add', '_self');
   };
 
   const onClickBack = () => {
@@ -36,11 +36,11 @@ const NavBar = ({disableBackButton, backFuntion}: NavBarProps) => {
   };
 
   const onLogoClick = () => {
-    window.open('/', '_self');
+    window.open('/petMatchFinder-GUI/', '_self');
   };
 
   const onCategoryClick = () => {
-    window.open('/categories', '_self');
+    window.open('/petMatchFinder-GUI/categories', '_self');
   }
 
   useEffect(() => {

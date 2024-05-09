@@ -11,7 +11,7 @@ const AdoptionApplicationContainer = ({
   showAdopterDetails,
 }: AdoptionApplicationContainerFormProps) => {
   const openAdoptionPage = (id: string) => {
-    window.open(`/animal-adoption/${id}`, '_self');
+    window.open(`/petMatchFinder-GUI/animal-adoption/${id}`, '_self');
   };
 
   return (

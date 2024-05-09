@@ -7,7 +7,7 @@ type AnimalContainerFormProps = {
 
 const AnimalContainer = ({animal}: AnimalContainerFormProps) => {
   const onClick = (id: string) => {
-    window.open(`/animals/${id}`, '_self');
+    window.open(`/petMatchFinder-GUI/animals/${id}`, '_self');
   };
   return (
     <>

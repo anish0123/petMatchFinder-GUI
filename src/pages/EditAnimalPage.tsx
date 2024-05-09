@@ -52,7 +52,7 @@ const EditAnimalPage = () => {
       );
       if (response.modifyAnimal) {
         alert('Animal edited successfully!');
-        window.open(`/animals/${response.modifyAnimal.animal.id}`, '_self');
+        window.open(`/petMatchFinder-GUI/animals/${response.modifyAnimal.animal.id}`, '_self');
       } else {
         alert('Failed to edit animal');
       }
@@ -62,7 +62,7 @@ const EditAnimalPage = () => {
   };
 
   const onClickBack = () => {
-    window.open(`/animals/${animalId}`, '_self');
+    window.open(`/petMatchFinder-GUI/animals/${animalId}`, '_self');
   }
 
   return (

@@ -37,7 +37,7 @@ const UpdateProfileForm = ({user}: UpdateProfileFormProps) => {
         if (registerationData.updateUser.token) {
           localStorage.setItem('token', registerationData.updateUser.token);
         }
-        window.open('/profile', '_self');
+        window.open('/petMatchFinder-GUI/profile', '_self');
       } else {
         alert('Failed to update user');
       }

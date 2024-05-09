@@ -12,15 +12,15 @@ type AnimalInfoProps = {
 
 const AnimalInfo = ({animal, animalId, user, onDelete}: AnimalInfoProps) => {
   const onAdopt = () => {
-    window.open(`/animals/${animalId}/adopt`, '_self');
+    window.open(`/petMatchFinder-GUI/animals/${animalId}/adopt`, '_self');
   };
 
   const onEdit = () => {
-    window.open(`/animals/${animalId}/edit`, '_self');
+    window.open(`/petMatchFinder-GUI/animals/${animalId}/edit`, '_self');
   };
 
   const onProfileCheck = () => {
-    window.open(`/profile/${animal?.owner.id}`, '_self');
+    window.open(`/petMatchFinder-GUI/profile/${animal?.owner.id}`, '_self');
   };
 
   const processCategory = (

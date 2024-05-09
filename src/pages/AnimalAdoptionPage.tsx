@@ -40,7 +40,7 @@ const AnimalAdoptionPage = () => {
     if (response.addAdoptionApplication) {
       alert('Adoption application submitted successfully!');
       window.open(
-        `/animal-adoption/${response.addAdoptionApplication.adoptionApplication.id}`,
+        `/petMatchFinder-GUI/animal-adoption/${response.addAdoptionApplication.adoptionApplication.id}`,
         '_self',
       );
     } else {
@@ -49,7 +49,7 @@ const AnimalAdoptionPage = () => {
   };
   
   const onClickBack = () => {
-    window.open(`/animals/${animalId}`, '_self');
+    window.open(`/petMatchFinder-GUI/animals/${animalId}`, '_self');
   }
 
   return (

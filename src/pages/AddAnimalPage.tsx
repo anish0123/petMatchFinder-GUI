@@ -35,7 +35,7 @@ const AddAnimalPage = () => {
       );
       if (response.addAnimal) {
         alert('Animal added successfully!');
-        window.open(`/animals/${response.addAnimal.animal.id}`, '_self');
+        window.open(`/petMatchFinder-GUI/animals/${response.addAnimal.animal.id}`, '_self');
       } else {
         alert('Failed to add animal');
       }
@@ -44,7 +44,7 @@ const AddAnimalPage = () => {
     }
   };
   const onClickBack = () => {
-    window.open('/', '_self');
+    window.open('/petMatchFinder-GUI/', '_self');
   }
 
   return (

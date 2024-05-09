@@ -92,7 +92,7 @@ const AnimalAdoptionDetailPage = () => {
         );
         if (response.deleteAdoptionApplication) {
           alert('Application deleted successfully!');
-          window.open('/profile', '_self');
+          window.open('/petMatchFinder-GUI/profile', '_self');
         } else {
           alert('Failed to delete application');
         }
@@ -123,7 +123,7 @@ const AnimalAdoptionDetailPage = () => {
   }, [token, refetch]);
 
   const onClickBack = () => {
-    window.open(`/animals/${adoption?.animal.id}`, '_self');
+    window.open(`/petMatchFinder-GUI/animals/${adoption?.animal.id}`, '_self');
   }
 
   return (
