@@ -41,7 +41,7 @@ const AnimalForm = ({
       if (imageFile) {
         const formData = new FormData();
         formData.append('cat', imageFile);
-        const imageUpload = await fetch(`${UploadUrl}/upload`, {
+        const imageUpload = await fetch(`${UploadUrl}upload`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
