@@ -58,7 +58,12 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/petMatchFinder-GUI/" element={<LoginPage />} />,
-            <Route path="/petMatchFinder-GUI/register" element={<RegisterationPage />} />,
+            <Route
+              path="/petMatchFinder-GUI/register"
+              element={<RegisterationPage />}
+            />
+            ,
+            <Route path="/petMatchFinder-GUI/*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </>
@@ -69,35 +74,63 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/petMatchFinder-GUI/" element={<ListingPage />} />,
-            <Route path="/petMatchFinder-GUI/register" element={<RegisterationPage />} />,
+            <Route
+              path="/petMatchFinder-GUI/register"
+              element={<RegisterationPage />}
+            />
+            ,
             <Route path="/petMatchFinder-GUI/login" element={<LoginPage />} />,
-            <Route path="/petMatchFinder-GUI/animals/add" element={<AddAnimalPage />} />,
-            <Route path="/petMatchFinder-GUI/animals/:animalId" element={<AnimalDetailPage />} />,
+            <Route
+              path="/petMatchFinder-GUI/animals/add"
+              element={<AddAnimalPage />}
+            />
+            ,
+            <Route
+              path="/petMatchFinder-GUI/animals/:animalId"
+              element={<AnimalDetailPage />}
+            />
+            ,
             <Route
               path="/petMatchFinder-GUI/animals/:animalId/adopt"
               element={<AnimalAdoptionPage />}
             />
             ,
-            <Route path="/petMatchFinder-GUI/profile" element={<ProfilePage />} />,
-            <Route path="/petMatchFinder-GUI/profile/update" element={<UpdateProfilePage />} />,
+            <Route
+              path="/petMatchFinder-GUI/profile"
+              element={<ProfilePage />}
+            />
+            ,
+            <Route
+              path="/petMatchFinder-GUI/profile/update"
+              element={<UpdateProfilePage />}
+            />
+            ,
             <Route
               path="/petMatchFinder-GUI/animal-adoption/:adoptionId"
               element={<AnimalAdoptionDetailPage />}
             />
             ,
-            <Route path="/petMatchFinder-GUI/profile/:userId" element={<ListerProfilePage />} />,
-            <Route path="/petMatchFinder-GUI/profile/:userId/Rating" element={<RatingPage />} />,
+            <Route
+              path="/petMatchFinder-GUI/profile/:userId"
+              element={<ListerProfilePage />}
+            />
+            ,
+            <Route
+              path="/petMatchFinder-GUI/profile/:userId/Rating"
+              element={<RatingPage />}
+            />
+            ,
             <Route
               path="/petMatchFinder-GUI/animals/:animalId/edit"
               element={<EditAnimalPage />}
             />
             {role === 'admin' && (
-              <Route path="/petMatchFinder-GUI/categories" element={<Categories />} />
+              <Route
+                path="/petMatchFinder-GUI/categories"
+                element={<Categories />}
+              />
             )}
-            <Route
-                    path="*"
-                    element={<NotFoundPage />}
-                />
+            <Route path="/petMatchFinder-GUI/*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </>

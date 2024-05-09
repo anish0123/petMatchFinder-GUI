@@ -60,7 +60,7 @@ const LoginForm = () => {
           >
             Login
           </button>
-          <Link to="/register" className=" underline pt-6 text-gray-800">New user? Register</Link>
+          <Link to="/petMatchFinder-GUI/register" className=" underline pt-6 text-gray-800">New user? Register</Link>
         </div>
       </form>
     </>

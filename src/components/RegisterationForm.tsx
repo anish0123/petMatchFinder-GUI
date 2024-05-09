@@ -82,7 +82,7 @@ const RegisterationForm = () => {
           >
             Register
           </button>
-          <Link to="/" className=" underline pt-6 text-gray-800">Already have account? Login</Link>
+          <Link to="/petMatchFinder-GUI/" className=" underline pt-6 text-gray-800">Already have account? Login</Link>
         </div>
       </form>
     </>
