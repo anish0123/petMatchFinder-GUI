@@ -6,6 +6,7 @@ Pet Match Finder - UI is created for the user interface of our project: [Pet Mat
 - [Installation steps](#installation-steps)
 - [Related](#related)
 - [App UI screenshots](#app-ui-screenshots)
+- [Demo](#demo)
 - [Author](#author)
 
 ## Technologies
@@ -18,13 +19,15 @@ Pet Match Finder - UI is created for the user interface of our project: [Pet Mat
 - Clone the project.
 - Do `npm install`.
 - Create `.env` file and add following fields:
-  +  NODE_ENV=development
-  +  PORT=4000
-  + JWT_SECRET=a<sswe45r6tygbhun89innklpo
-  + VITE_API_URL=http://localhost:3000/graphql
-  + VITE_UPLOAD_URL=http://localhost:3002/api/v1/
-  + VITE_FILE_URL=http://localhost:3002/uploads
-  + VITE_SOCKET_URL=http://localhost:3003
+  ```
+    NODE_ENV=development
+    PORT=
+    JWT_SECRET=
+    VITE_API_URL=
+    VITE_UPLOAD_URL=
+    VITE_FILE_URL=
+    VITE_SOCKET_URL=
+    ```
 
 - Do `npm run dev`
 
@@ -48,6 +51,9 @@ Pet Match Finder - UI is created for the user interface of our project: [Pet Mat
   <img src="https://github.com/anish0123/petMatchFinder-GUI/assets/87969471/4c7e5e64-f66b-41d7-9927-dc4eb70234a8" width="400" height="200"/> 
   <img src="https://github.com/anish0123/petMatchFinder-GUI/assets/87969471/bf486c8a-a5c0-4234-bf91-30b18a74bfe2" width="400" height="200"/>
 </p>
+
+## Demo
+[![DemoVideo](https://img.youtube.com/vi/KrspxuMndt0/0.jpg)](https://youtu.be/KrspxuMndt0)
 
 ## Author
 [Anish Maharjan](https://github.com/anish0123)
