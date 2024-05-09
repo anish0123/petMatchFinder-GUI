@@ -57,8 +57,8 @@ export default function App() {
       <>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<LoginPage />} />,
-            <Route path="/register" element={<RegisterationPage />} />,
+            <Route path="/petMatchFinder-GUI/" element={<LoginPage />} />,
+            <Route path="/petMatchFinder-GUI/register" element={<RegisterationPage />} />,
           </Routes>
         </BrowserRouter>
       </>
@@ -66,33 +66,33 @@ export default function App() {
   } else {
     return (
       <>
-        <BrowserRouter basename='petMatchFinder-GUI'>
+        <BrowserRouter>
           <Routes>
-            <Route path="/" element={<ListingPage />} />,
-            <Route path="/register" element={<RegisterationPage />} />,
-            <Route path="/login" element={<LoginPage />} />,
-            <Route path="/animals/add" element={<AddAnimalPage />} />,
-            <Route path="/animals/:animalId" element={<AnimalDetailPage />} />,
+            <Route path="/petMatchFinder-GUI/" element={<ListingPage />} />,
+            <Route path="/petMatchFinder-GUI/register" element={<RegisterationPage />} />,
+            <Route path="/petMatchFinder-GUI/login" element={<LoginPage />} />,
+            <Route path="/petMatchFinder-GUI/animals/add" element={<AddAnimalPage />} />,
+            <Route path="/petMatchFinder-GUI/animals/:animalId" element={<AnimalDetailPage />} />,
             <Route
-              path="/animals/:animalId/adopt"
+              path="/petMatchFinder-GUI/animals/:animalId/adopt"
               element={<AnimalAdoptionPage />}
             />
             ,
-            <Route path="/profile" element={<ProfilePage />} />,
-            <Route path="/profile/update" element={<UpdateProfilePage />} />,
+            <Route path="/petMatchFinder-GUI/profile" element={<ProfilePage />} />,
+            <Route path="/petMatchFinder-GUI/profile/update" element={<UpdateProfilePage />} />,
             <Route
-              path="/animal-adoption/:adoptionId"
+              path="/petMatchFinder-GUI/animal-adoption/:adoptionId"
               element={<AnimalAdoptionDetailPage />}
             />
             ,
-            <Route path="/profile/:userId" element={<ListerProfilePage />} />,
-            <Route path="/profile/:userId/Rating" element={<RatingPage />} />,
+            <Route path="/petMatchFinder-GUI/profile/:userId" element={<ListerProfilePage />} />,
+            <Route path="/petMatchFinder-GUI/profile/:userId/Rating" element={<RatingPage />} />,
             <Route
-              path="/animals/:animalId/edit"
+              path="/petMatchFinder-GUI/animals/:animalId/edit"
               element={<EditAnimalPage />}
             />
             {role === 'admin' && (
-              <Route path="/categories" element={<Categories />} />
+              <Route path="/petMatchFinder-GUI/categories" element={<Categories />} />
             )}
             <Route
                     path="*"
