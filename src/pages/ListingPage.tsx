@@ -27,7 +27,8 @@ socket.on('addAnimal', (message) => {
       try {
         const animalsResponse = await doGraphQLFetch(APIUrl, getAllAnimals, {});
         if (animalsResponse.animals) {
-          setAnimals(animalsResponse.animals);
+          const filteredAnimals = animalsResponse.animals.filter((animal: Animal) => animal.adoptionStatus === 'available');
+          setAnimals(filteredAnimals);
         }
       } catch (error) {
         console.error(error);

@@ -35,7 +35,7 @@ const AnimalInfo = ({animal, animalId, user, onDelete}: AnimalInfoProps) => {
   };
   return (
     <div className="pt-4 h-fit grid grid-cols-2">
-      <img src={`${FileUrl}${animal?.image}`} alt={animal?.animal_name} />
+      <img src={`${FileUrl}/${animal?.image}`} alt={animal?.animal_name} />
       <div className="pt-4 pl-4">
         <p className="pb-4">
           <strong>Category: </strong>

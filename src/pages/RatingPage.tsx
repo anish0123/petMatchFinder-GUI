@@ -68,8 +68,8 @@ const RatingPage = () => {
 
   const onClickBack = () => {
     window.open(`/petMatchFinder-GUI/profile/${userId}`, '_self');
-  }
- 
+  };
+
   useEffect(() => {
     (async () => {
       const userResponse = await doGraphQLFetch(APIUrl, checkToken, {}, token!);
@@ -127,34 +127,39 @@ const RatingPage = () => {
           </>
         ) : (
           <>
-            <h1 className="justify-self-center py-4 font-semibold">No ratings available</h1>
+            <h1 className="justify-self-center py-4 font-semibold">
+              No ratings available
+            </h1>
           </>
         )}
-
-        <h1 className="font-semibold text-2xl pb-4 justify-self-center pt-4">
-          Add Rating
-        </h1>
-        <div className="grid place-items-center">
-          <RatingStar
-            name="new-rating"
-            onChange={(_event, newValue) => {
-              setNewRating(newValue);
-            }}
-            size="large"
-            precision={0.5}
-          />
-          <textarea
-            className="ml-2 w-2/5 my-7 px-4 h-20 border rounded-lg"
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Description"
-          />
-          <button
-            className="content-center w-32 pl-5 mt-2 h-3/5 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 pl-2 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
-            onClick={onSubmit}
-          >
-            Add Rating
-          </button>
-        </div>
+        {user?.id !== userId && (
+          <>
+            <h1 className="font-semibold text-2xl pb-4 justify-self-center pt-4">
+              Add Rating
+            </h1>
+            <div className="grid place-items-center">
+              <RatingStar
+                name="new-rating"
+                onChange={(_event, newValue) => {
+                  setNewRating(newValue);
+                }}
+                size="large"
+                precision={0.5}
+              />
+              <textarea
+                className="ml-2 w-2/5 my-7 px-4 h-20 border rounded-lg"
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Description"
+              />
+              <button
+                className="content-center w-32 pl-5 mt-2 h-3/5 inline-flex cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 pl-2 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
+                onClick={onSubmit}
+              >
+                Add Rating
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
