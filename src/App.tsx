@@ -66,7 +66,7 @@ export default function App() {
   } else {
     return (
       <>
-        <BrowserRouter>
+        <BrowserRouter basename='petMatchFinder-GUI'>
           <Routes>
             <Route path="/" element={<ListingPage />} />,
             <Route path="/register" element={<RegisterationPage />} />,
