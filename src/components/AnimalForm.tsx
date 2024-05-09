@@ -4,10 +4,11 @@ import {MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
 import {Category} from '../types/Category';
 import MapClickHandler from './MapClickHandler';
 import {useState} from 'react';
-import {LatLngLiteral} from 'leaflet';
+import {Icon, LatLngLiteral} from 'leaflet';
 import {UploadResponse} from '../types/UploadResponse';
 import {UploadUrl} from '../constants';
 import {Point} from 'geojson';
+import marker from '../assets/marker-icon.png';
 
 type AdoptionFormProps = {
   onSubmit: (data: Animal) => void;
@@ -15,14 +16,24 @@ type AdoptionFormProps = {
   categories: Category[];
   animal?: Animal;
 };
-const AnimalForm = ({onSubmit, categories, editForm, animal}: AdoptionFormProps) => {
+const AnimalForm = ({
+  onSubmit,
+  categories,
+  editForm,
+  animal,
+}: AdoptionFormProps) => {
   const [clickedPosition, setClickedPosition] = useState<LatLngLiteral>();
+  const myIcon = new Icon({
+    iconUrl: marker,
+    iconSize: [32,32]
+   })
   const {
     register,
     handleSubmit,
     formState: {errors},
   } = useForm<Animal>();
   const token = localStorage.getItem('token');
+
 
   const onSubmitForm: SubmitHandler<Animal> = async (data) => {
     try {
@@ -81,14 +92,16 @@ const AnimalForm = ({onSubmit, categories, editForm, animal}: AdoptionFormProps)
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {clickedPosition ? (
-            <Marker position={[clickedPosition?.lat, clickedPosition?.lng]}>
+            <Marker position={[clickedPosition?.lat, clickedPosition?.lng]} icon={myIcon}>
               <Popup>Selected postion</Popup>
             </Marker>
           ) : (
             <></>
           )}
         </MapContainer>
-        <h1 className='py-2 justify-self-center'>Location can be selected by clicking on desired location</h1>
+        <h1 className="py-2 justify-self-center">
+          Location can be selected by clicking on desired location
+        </h1>
         <input
           type="text"
           {...register('animal_name', {
@@ -152,7 +165,7 @@ const AnimalForm = ({onSubmit, categories, editForm, animal}: AdoptionFormProps)
           type="file"
         />
         {errors.image && <span>Image is required</span>}
-        <div className='grid grid-flow-col'>
+        <div className="grid grid-flow-col">
           <input
             {...register('weight', {
               required: editForm ? false : true,
@@ -167,7 +180,7 @@ const AnimalForm = ({onSubmit, categories, editForm, animal}: AdoptionFormProps)
           {errors.weight && (
             <span>Weight is required & should be greater than 0</span>
           )}
-           <input
+          <input
             {...register('price', {
               required: editForm ? false : true,
               min: 0,

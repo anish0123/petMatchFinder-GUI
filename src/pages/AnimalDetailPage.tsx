@@ -16,6 +16,9 @@ import {ClientToServerEvents, ServerToClientEvents} from '../types/Socket';
 import AnimalInfo from '../components/AnimalInfo';
 import {AdoptionApplication} from '../types/AdoptionApplication';
 import AdoptionApplicationContainer from '../components/AdoptionContainer';
+import {MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
+import marker from '../assets/marker-icon.png';
+import {Icon, LatLngLiteral} from 'leaflet';
 
 const AnimalDetailPage = () => {
   const [animal, setAnimal] = useState<Animal>();
@@ -26,6 +29,11 @@ const AnimalDetailPage = () => {
   const {animalId} = useParams();
   const [user, setUser] = useState<User>();
   const token = localStorage.getItem('token');
+  const [location, setLocation] = useState<LatLngLiteral>();
+  const myIcon = new Icon({
+    iconUrl: marker,
+    iconSize: [32, 32],
+  });
 
   // socket.io client
   const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
@@ -48,6 +56,7 @@ const AnimalDetailPage = () => {
       }
       if (response.animalById) {
         setAnimal(response.animalById);
+        setLocation(response.animalById.location.coordinates);
       }
       if (response.owner?.id === userResponse?.id) {
         const adoptionApplicationsResponse = await doGraphQLFetch(
@@ -95,10 +104,10 @@ const AnimalDetailPage = () => {
 
   const onClickBack = () => {
     window.open('/petMatchFinder-GUI/', '_self');
-  }
+  };
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screens">
       <NavBar backFuntion={onClickBack} />
       <div className="mx-12 my-8 p-4 border shadow-lg rounded-lg grid grid-flow-row">
         <h1 className="text-2xl font-semibold justify-self-center">
@@ -111,7 +120,6 @@ const AnimalDetailPage = () => {
             user={user!}
             onDelete={onDelete}
           />
-
           {animal?.owner.id === user?.id && (
             <>
               <h1 className="pt-8 pb-4 font-semibold text-2xl">
@@ -137,6 +145,25 @@ const AnimalDetailPage = () => {
             </>
           )}
         </div>
+      </div>
+      <div className="grid place-items-center mx-14 mb-8">
+        <h1 className="py-4 font-semibold">Approximate location of pet adoption center</h1>
+        <MapContainer
+          center={[60.1699, 24.9384]}
+          zoom={5}
+          scrollWheelZoom={false}
+          style={{height: '400px', width: '100%'}}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {location && (
+            <Marker position={location!} icon={myIcon}>
+              <Popup>Animal's adoption location</Popup>
+            </Marker>
+          )}
+        </MapContainer>
       </div>
     </div>
   );

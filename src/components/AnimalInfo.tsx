@@ -1,3 +1,4 @@
+
 import {FileUrl} from '../constants';
 import {Animal} from '../types/Animal';
 import {Category} from '../types/Category';
@@ -11,6 +12,7 @@ type AnimalInfoProps = {
 };
 
 const AnimalInfo = ({animal, animalId, user, onDelete}: AnimalInfoProps) => {
+
   const onAdopt = () => {
     window.open(`/petMatchFinder-GUI/animals/${animalId}/adopt`, '_self');
   };

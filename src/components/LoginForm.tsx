@@ -25,7 +25,7 @@ const LoginForm = () => {
       })) as LoginMessageResponse;
       localStorage.setItem('token', loginData.login.token!);
       localStorage.setItem('user_name', loginData.login.user.user_name!);
-      window.open('/petMatchFinder-GUI', '_self');
+      window.open('/petMatchFinder-GUI/', '_self');
     } catch (error) {
       console.error(error);
     }
