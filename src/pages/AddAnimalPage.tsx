@@ -52,7 +52,7 @@ const AddAnimalPage = () => {
       <NavBar backFuntion={onClickBack} />
       <div className="px-10 py-16 grid">
         <h1 className="justify-self-center text-2xl font-semibold text-gray-800 pb-4">
-          Register
+          Add Animal
         </h1>
         <AnimalForm
           onSubmit={onSubmit}
