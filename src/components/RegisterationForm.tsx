@@ -25,8 +25,9 @@ const RegisterationForm = () => {
       const registerationData = (await doGraphQLFetch(APIUrl, registerUser, {
         user: data,
       }));
-     if(registerationData) {
+     if(registerationData.register) {
       window.open("/petMatchFinder-GUI/", "_self")
+      alert('User registered successfully');
      } else {
       alert('Failed to register user');
      }
