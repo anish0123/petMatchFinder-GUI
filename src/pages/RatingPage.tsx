@@ -65,11 +65,7 @@ const RatingPage = () => {
       location.reload();
     }
   };
-
-  const onClickBack = () => {
-    window.open(`/petMatchFinder-GUI/profile/${userId}`, '_self');
-  };
-
+  
   useEffect(() => {
     (async () => {
       const userResponse = await doGraphQLFetch(APIUrl, checkToken, {}, token!);
@@ -98,7 +94,7 @@ const RatingPage = () => {
 
   return (
     <div className="w-screen h-screen">
-      <NavBar backFuntion={onClickBack} />
+      <NavBar />
       <div className="grid pt-8">
         <h1 className="font-semibold text-2xl justify-self-center">
           Overall Rating
