@@ -82,6 +82,8 @@ const Categories = () => {
         );
         if (response.deleteCategory) {
           alert('Category deleted successfully!');
+        } else {
+          alert('Failed to delete category');
         }
       }
     } catch (error) {
@@ -102,6 +104,8 @@ const Categories = () => {
       );
       if(response.modifyCategory) {
         alert('Category modified successfully!');
+      } else {
+        alert('Failed to modify category');
       }
     } catch (error) {
       console.error(error);

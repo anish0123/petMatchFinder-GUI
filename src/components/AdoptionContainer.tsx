@@ -1,5 +1,6 @@
 import {FileUrl} from '../constants';
 import {AdoptionApplication} from '../types/AdoptionApplication';
+import { formatDateTime } from '../utils/formatDateTime';
 
 type AdoptionApplicationContainerFormProps = {
   application: AdoptionApplication;
@@ -24,7 +25,7 @@ const AdoptionApplicationContainer = ({
         {showAdopterDetails ? (
           <>
             <h1>{application.description}</h1>
-            <h1>{application.appliedDate.toString()}</h1>
+            <h1>{formatDateTime(application.appliedDate)}</h1>
             <h1 className='font-semibold'> Adopter Details</h1>
             <h1>{application?.adopter?.user_name}</h1>
             <h1>{application?.adopter?.email}</h1>
@@ -37,7 +38,7 @@ const AdoptionApplicationContainer = ({
               alt={application?.animal?.animal_name}
             />
             <h1>{application?.description}</h1>
-            <h1>{application?.appliedDate.toString()}</h1>
+            <h1>{formatDateTime(application?.appliedDate)}</h1>
             <h1>{application?.applicationStatus}</h1>
           </>
         )}

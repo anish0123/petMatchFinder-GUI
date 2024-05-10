@@ -57,7 +57,7 @@ const AnimalForm = ({
           };
           data.location = location;
         }
-        data.image = imageUploadData.data.filename;
+        data.image = imageUploadData.data?.filename;
       } else {
         data.image = '';
       }

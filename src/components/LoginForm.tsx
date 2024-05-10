@@ -1,14 +1,14 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { doGraphQLFetch } from "../graphql/fetch";
-import { APIUrl } from "../constants";
-import { login } from "../graphql/queries";
-import { LoginMessageResponse } from "../types/LoginMessageResponse";
-import { Link } from "react-router-dom";
+import {SubmitHandler, useForm} from 'react-hook-form';
+import {doGraphQLFetch} from '../graphql/fetch';
+import {APIUrl} from '../constants';
+import {login} from '../graphql/queries';
+import {LoginMessageResponse} from '../types/LoginMessageResponse';
+import {Link} from 'react-router-dom';
 
 type LoginInput = {
-    email: string;
-    password: string;
-  };
+  email: string;
+  password: string;
+};
 
 const LoginForm = () => {
   const {
@@ -23,10 +23,14 @@ const LoginForm = () => {
       const loginData = (await doGraphQLFetch(APIUrl, login, {
         credentials: data,
       })) as LoginMessageResponse;
-      localStorage.setItem('token', loginData.login.token!);
-      localStorage.setItem('user_name', loginData.login.user.user_name!);
-      alert('Login successful');
-      window.open('/petMatchFinder-GUI/', '_self');
+      if (loginData.login) {
+        localStorage.setItem('token', loginData.login.token!);
+        localStorage.setItem('user_name', loginData.login.user.user_name!);
+        alert('Login successful');
+        window.open('/petMatchFinder-GUI/', '_self');
+      } else {
+        alert('Error in login. Please try again.');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -61,7 +65,12 @@ const LoginForm = () => {
           >
             Login
           </button>
-          <Link to="/petMatchFinder-GUI/register" className=" underline pt-6 text-gray-800">New user? Register</Link>
+          <Link
+            to="/petMatchFinder-GUI/register"
+            className=" underline pt-6 text-gray-800"
+          >
+            New user? Register
+          </Link>
         </div>
       </form>
     </>

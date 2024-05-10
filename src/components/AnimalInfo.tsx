@@ -1,8 +1,8 @@
-
 import {FileUrl} from '../constants';
 import {Animal} from '../types/Animal';
 import {Category} from '../types/Category';
 import {User} from '../types/User';
+import { formatDate, formatDateTime } from '../utils/formatDateTime';
 
 type AnimalInfoProps = {
   animal: Animal;
@@ -12,7 +12,6 @@ type AnimalInfoProps = {
 };
 
 const AnimalInfo = ({animal, animalId, user, onDelete}: AnimalInfoProps) => {
-
   const onAdopt = () => {
     window.open(`/petMatchFinder-GUI/animals/${animalId}/adopt`, '_self');
   };
@@ -24,6 +23,7 @@ const AnimalInfo = ({animal, animalId, user, onDelete}: AnimalInfoProps) => {
   const onProfileCheck = () => {
     window.open(`/petMatchFinder-GUI/profile/${animal?.owner.id}`, '_self');
   };
+  
 
   const processCategory = (
     category: Category | string | undefined,
@@ -52,11 +52,11 @@ const AnimalInfo = ({animal, animalId, user, onDelete}: AnimalInfoProps) => {
         </p>
         <p className="pb-4">
           <strong>Date of birth: </strong>
-          {animal?.birthdate?.toString()}
+          {formatDate(animal?.birthdate)}
         </p>
         <p className="pb-4">
           <strong>Listed at: </strong>
-          {animal?.listedDate?.toString()}
+          {formatDateTime(animal?.listedDate)}
         </p>
         <p className="pb-4">
           <strong>Adoption Status: </strong>

@@ -63,9 +63,11 @@ const RatingPage = () => {
     if (response.addRating) {
       alert('Rating added successfully!');
       location.reload();
+    } else {
+      alert('Failed to add rating');
     }
   };
-  
+
   useEffect(() => {
     (async () => {
       const userResponse = await doGraphQLFetch(APIUrl, checkToken, {}, token!);
@@ -87,6 +89,8 @@ const RatingPage = () => {
           sum += rating.rating;
         });
         setOverallRating(sum / ratingResponse.ratingByRatedToUser?.length);
+      } else {
+        setRatings([]);
       }
     })();
     //eslint-disable-next-line
